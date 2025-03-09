@@ -26,7 +26,7 @@ public:
     void syncShowHide(al::LiveActor*);
     void startDamageStopDemo();
     void syncHostDamageStopDemo(bool);
-    s32 calcCostumeWarmLevel(s32);
+    s32 calcCostumeWarmLevel(s32) const;
     void syncModelBoneVisibility();
 
     void resetPosition() override;

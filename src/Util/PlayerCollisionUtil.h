@@ -39,6 +39,7 @@ bool isOnGroundLessAngle(const al::LiveActor*, const IUsePlayerCollision*, f32);
 bool isPlayerOnGround(const al::LiveActor*);
 bool isOnGround(const al::LiveActor*, const IUsePlayerCollision*);
 bool isJustLand(const IUsePlayerCollision*);
+void calcMovePowerGround(sead::Vector3f*, const IUsePlayerCollision*, const sead::Vector3f&);
 void calcGroundNormalOrGravityDir(sead::Vector3f*, const al::LiveActor*,
                                   const IUsePlayerCollision*);
 bool isCollisionCodeSandSink(const IUsePlayerCollision*);
@@ -53,6 +54,7 @@ bool isCollisionCodeGrabCeilGrround(const IUsePlayerCollision*);
 
 void setColliderFilterCollisionParts(IUsePlayerCollision*, const al::CollisionPartsFilterBase*);
 
+void startHitReactionLandIfLanding(const al::LiveActor*, const IUsePlayerCollision*, bool);
 bool reboundVelocityFromCollision(al::LiveActor*, const IUsePlayerCollision*, f32, f32, f32);
 al::HitSensor* tryGetCollidedCeilingSensor(const IUsePlayerCollision*);
 

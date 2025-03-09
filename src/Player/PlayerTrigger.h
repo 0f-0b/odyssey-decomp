@@ -8,6 +8,8 @@ public:
     enum ECollisionTrigger : u32 {
         // used in PlayerStateHipDrop
         ECollisionTrigger_val1 = 1,
+        // used in PlayerStateWait
+        ECollisionTrigger_val8 = 8,
     };
 
     enum EAttackSensorTrigger : u32 {
@@ -20,6 +22,10 @@ public:
         EActionTrigger_val3 = 3,
         // used in PlayerJudgeForceLand
         EActionTrigger_val11 = 11,
+        // used in PlayerStateWait
+        EActionTrigger_val24 = 24,
+        // used in PlayerStateWait
+        EActionTrigger_val25 = 25,
         // used in PlayerJudgeWallCatch
         EActionTrigger_val30 = 30,
         EActionTrigger_QuickTurn = 34,
@@ -29,7 +35,10 @@ public:
 
     enum EPreMovementTrigger : u32 {};
 
-    enum EDemoEndTrigger : u32 {};
+    enum EDemoEndTrigger : u32 {
+        // used in PlayerStateWait
+        EDemoEndTrigger_val0 = 0,
+    };
 
     enum EMaterialChangeTrigger : u32 {};
 

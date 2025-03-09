@@ -55,15 +55,13 @@ f32 easeInOut(f32 var) {
     return (((var * -2.0f) + 3.0f) * var) * var;
 }
 
-f32 sign(f32 result) {
-    f32 v1;
-    v1 = result < 0.0f;
-    if (result > 0.0f)
-        result = 1.0f;
-    if (v1)
-        result = -1.0f;
+f32 sign(f32 var) {
+    if (var < 0.0f)
+        return -1.0f;
+    if (var > 0.0f)
+        return 1.0f;
 
-    return result;
+    return var;
 }
 
 s32 sign(s32 var) {

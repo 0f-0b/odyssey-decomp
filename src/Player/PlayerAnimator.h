@@ -1,16 +1,18 @@
 #pragma once
 
+#include <math/seadMatrix.h>
 #include <prim/seadSafeString.h>
-
-#include "Player/PlayerAnimFrameCtrl.h"
 
 namespace al {
 class LiveActor;
-}
+class ActorDitherAnimator;
+}  // namespace al
+class PlayerAnimFrameCtrl;
 class PlayerModelHolder;
 
 class PlayerAnimator {
 public:
+    PlayerAnimator(const PlayerModelHolder*, al::ActorDitherAnimator*);
     void startAnim(const sead::SafeString& animName);
     void startSubAnim(const sead::SafeString& animName);
     void startSubAnimOnlyAir(const sead::SafeString& animName);
@@ -19,6 +21,7 @@ public:
     void endSubAnim();
 
     void updateAnimFrame();
+    void clearInterpolation();
     void clearUpperBodyAnim();
 
     bool isAnim(const sead::SafeString& animName) const;
