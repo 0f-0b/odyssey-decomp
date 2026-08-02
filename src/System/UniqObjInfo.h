@@ -19,6 +19,14 @@ struct UniqObjInfo {
     void print() const;
     void fillDummyData();
 
+    const char* getStageName() const { return stageName.cstr(); }
+
+    void setStageName(const char* str) { stageName.format("%s", str); }
+
+    const char* getObjId() const { return objId.cstr(); }
+
+    void setObjId(const char* str) { objId.format("%s", str); }
+
     sead::FixedSafeString<128> stageName;
     sead::FixedSafeString<128> objId;
 };

@@ -13,7 +13,8 @@ NERVE_IMPL(PlayerCapManHeroEyesControl, Wait)
 NERVE_IMPL(PlayerCapManHeroEyesControl, Disappear)
 NERVE_IMPL(PlayerCapManHeroEyesControl, Demo)
 
-NERVES_MAKE_NOSTRUCT(PlayerCapManHeroEyesControl, Dead, Disappear, Demo, Appear, Wait)
+NERVES_MAKE_NOSTRUCT(PlayerCapManHeroEyesControl, Dead, Disappear, Demo)
+NERVES_MAKE_STRUCT(PlayerCapManHeroEyesControl, Appear, Wait)
 }  // namespace
 
 PlayerCapManHeroEyesControl::PlayerCapManHeroEyesControl(const char* name, al::LiveActor* capEye,
@@ -31,7 +32,7 @@ void PlayerCapManHeroEyesControl::start() {
     if (al::isDead(mCapEye))
         mCapEye->appear();
 
-    al::setNerve(this, &Appear);
+    al::setNerve(this, &NrvPlayerCapManHeroEyesControl.Appear);
 }
 
 void PlayerCapManHeroEyesControl::fastStart() {
@@ -43,7 +44,7 @@ void PlayerCapManHeroEyesControl::fastStart() {
 
     al::startAction(mCapEye, "Appear");
     al::setActionFrame(mCapEye, al::getActionFrameMax(mCapEye, "Appear"));
-    al::setNerve(this, &Wait);
+    al::setNerve(this, &NrvPlayerCapManHeroEyesControl.Wait);
 }
 
 void PlayerCapManHeroEyesControl::end() {
@@ -86,7 +87,8 @@ al::LiveActor* PlayerCapManHeroEyesControl::getPuppetEye() const {
 }
 
 bool PlayerCapManHeroEyesControl::isAppear() const {
-    return al::isNerve(this, &Appear) || al::isNerve(this, &Wait);
+    return al::isNerve(this, &NrvPlayerCapManHeroEyesControl.Appear) ||
+           al::isNerve(this, &NrvPlayerCapManHeroEyesControl.Wait);
 }
 
 bool PlayerCapManHeroEyesControl::isDisappear() const {
@@ -104,7 +106,7 @@ bool PlayerCapManHeroEyesControl::isDeadCap() const {
 }
 
 void PlayerCapManHeroEyesControl::requestWaitAnimChange(const char* actionName) {
-    if (al::isNerve(this, &Wait) && al::isAlive(mCapEye))
+    if (al::isNerve(this, &NrvPlayerCapManHeroEyesControl.Wait) && al::isAlive(mCapEye))
         al::tryStartActionIfNotPlaying(mCapEye, actionName);
 }
 
@@ -113,7 +115,7 @@ void PlayerCapManHeroEyesControl::exeAppear() {
         al::startAction(mCapEye, "Appear");
 
     if (al::isActionEnd(mCapEye))
-        al::setNerve(this, &Wait);
+        al::setNerve(this, &NrvPlayerCapManHeroEyesControl.Wait);
 }
 
 void PlayerCapManHeroEyesControl::exeWait() {

@@ -24,3 +24,5 @@ private:
     bool mIsShown = false;
     const al::LiveActor* mPlayer = nullptr;
 };
+
+static_assert(sizeof(PlayGuideCamera) == 0x138);

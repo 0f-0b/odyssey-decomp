@@ -18,13 +18,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-file(GLOB_RECURSE SOURCES_GAME CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.c ${PROJECT_SOURCE_DIR}/src/*.hpp ${PROJECT_SOURCE_DIR}/src/*.h)
-file(GLOB_RECURSE SOURCES_AL CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/lib/al/*.cpp ${PROJECT_SOURCE_DIR}/lib/al/*.c ${PROJECT_SOURCE_DIR}/lib/al/*.h ${PROJECT_SOURCE_DIR}/lib/al/*.hpp)
+file(GLOB_RECURSE SOURCES_GAME CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/src/*.cpp)
+file(GLOB_RECURSE SOURCES_AL CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/lib/al/*.cpp)
 
 add_executable(odyssey ${SOURCES_GAME} ${SOURCES_AL})
 
 target_include_directories(odyssey PRIVATE src)
 target_include_directories(odyssey PRIVATE lib/al)
+target_compile_definitions(odyssey PRIVATE _LIBCPP_HAS_MUSL_LIBC)
 target_compile_definitions(odyssey PRIVATE NON_MATCHING)
 target_compile_options(odyssey PRIVATE -fno-exceptions)
 target_compile_options(odyssey PRIVATE -Wall -Wextra -Wdeprecated)

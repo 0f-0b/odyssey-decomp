@@ -249,6 +249,10 @@ public:
         return mWorldsForNewReleaseShop;
     }
 
+    const s32* getShopsMoonNum() const { return mShopsMoonNum; }
+
+    s32 getShopTalkDataSize() const { return mShopTalkDataSize; }
+
     AchievementInfoReader* getAchievementInfoReader() const { return mAchievementInfoReader; }
 
     WorldList* getWorldList() const { return mWorldList; }

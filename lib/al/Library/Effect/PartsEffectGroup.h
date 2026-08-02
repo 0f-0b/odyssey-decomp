@@ -12,9 +12,9 @@ class PartsEffect;
 class PartsEffectGroup {
 public:
     PartsEffectGroup();
-    void init(s32, const EffectSystemInfo*, const char*, const sead::Vector3f*,
-              const sead::Vector3f*, const sead::Matrix34f*, const IUseCamera*);
-    PartsEffect* getEffect(s32) const;
+    void init(s32 size, const EffectSystemInfo* systen_info, const char*, const sead::Vector3f*,
+              const sead::Vector3f*, const sead::Matrix34f*, const IUseCamera* camera);
+    PartsEffect* getEffect(s32 index) const;
     s32 getEffectNum() const;
     void update();
     void kill();

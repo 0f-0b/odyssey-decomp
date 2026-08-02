@@ -3,28 +3,26 @@
 #include "Library/Nerve/NerveStateBase.h"
 
 namespace al {
-class PlayerHolder;
 class LayoutActor;
 class LayoutInitInfo;
+class PlayerHolder;
+class SimpleLayoutAppearWaitEnd;
 class SubCameraRenderer;
 }  // namespace al
-
 class CoinCounter;
 class CounterLifeCtrl;
-class ShineCounter;
-class ShineChipLayoutParts;
-class PlayGuideCamera;
-class PlayGuideBgm;
 class MapMini;
-class SimpleLayoutAppearWaitEnd;
-class GamePadPlayStyleInfo;
+class PlayGuideBgm;
+class PlayGuideCamera;
+class ShineChipLayoutParts;
+class ShineCounter;
+struct GamePadPlayStyleInfo;
 
 class StageSceneLayout : public al::NerveStateBase {
 public:
-    StageSceneLayout(const char*, const al::LayoutInitInfo&, const al::PlayerHolder*,
-                     const al::SubCameraRenderer*);
-    ~StageSceneLayout();
-
+    StageSceneLayout(const char* name, const al::LayoutInitInfo& info,
+                     const al::PlayerHolder* player_holder,
+                     const al::SubCameraRenderer* sub_camera_renderer);
     void startActionAll(const char*);
     void control() override;
     void updatePlayGuideMenuText();
@@ -56,7 +54,7 @@ public:
     void missEnd();
     void appearPlayGuideCamera();
     void exeAppear();
-    bool isActionEndAll();
+    bool isActionEndAll() const;
     void exeWait();
     void exeEnd();
     void exeEndWithoutCoin();
@@ -69,19 +67,19 @@ public:
     bool isEndShineCountAnim() const;
 
 private:
-    CoinCounter* mCoinCounter;
-    CounterLifeCtrl* mCounterLifeCtrl;
-    ShineCounter* mShineCounter;
-    CoinCounter* mCoinCollectCounter;
-    ShineChipLayoutParts* mShineChipLayoutParts;
-    PlayGuideCamera* mPlayGuideCamera;
-    PlayGuideBgm* mPlayGuideBgm;
-    MapMini* mMapMini;
+    CoinCounter* mCoinCounter = nullptr;
+    CounterLifeCtrl* mCounterLifeCtrl = nullptr;
+    ShineCounter* mShineCounter = nullptr;
+    CoinCounter* mCoinCollectCounter = nullptr;
+    ShineChipLayoutParts* mShineChipLayoutParts = nullptr;
+    PlayGuideCamera* mPlayGuideCamera = nullptr;
+    PlayGuideBgm* mPlayGuideBgm = nullptr;
+    MapMini* mMapMini = nullptr;
     const al::PlayerHolder* mPlayerHolder;
-    bool _60;
-    SimpleLayoutAppearWaitEnd* mPlayGuideMenu;
-    GamePadPlayStyleInfo* mGamePadPlayStyleInfo;
-    al::LayoutActor* mLayoutActorKidsMode;
+    bool _60 = false;
+    al::SimpleLayoutAppearWaitEnd* mPlayGuideMenu = nullptr;
+    GamePadPlayStyleInfo* mGamePadPlayStyleInfo = nullptr;
+    al::LayoutActor* mLayoutActorKidsMode = nullptr;
 };
 
 static_assert(sizeof(StageSceneLayout) == 0x80);

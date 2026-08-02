@@ -29,8 +29,6 @@ public:
     const CollisionShapeInfoSphere* getShapeInfoSphere() const;
     const CollisionShapeInfoDisk* getShapeInfoDisk() const;
 
-    void operator=(const CollidedShapeResult& other);
-
 private:
     const CollisionShapeInfoBase* mShapeInfo;
     al::ArrowHitInfo mArrowHitInfo;

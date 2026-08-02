@@ -11,6 +11,8 @@ public:
 
     void setWaterAreaGroup(AreaObjGroup* waterAreaGroup) { mWaterAreaGroup = waterAreaGroup; }
 
+    FluidSurfaceHolder* getFluidSurfaceHolder() const { return mFluidSurfaceHolder; };
+
 private:
     AreaObjGroup* mWaterAreaGroup;
     FluidSurfaceHolder* mFluidSurfaceHolder;

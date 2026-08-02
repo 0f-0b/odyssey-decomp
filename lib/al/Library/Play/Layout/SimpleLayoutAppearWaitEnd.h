@@ -25,4 +25,6 @@ public:
 private:
     s32 mLifetime = -1;
 };
+
+static_assert(sizeof(SimpleLayoutAppearWaitEnd) == 0x130);
 }  // namespace al

@@ -23,3 +23,5 @@ public:
 private:
     al::SimpleLayoutAppearWaitEnd* mLayout = nullptr;
 };
+
+static_assert(sizeof(PlayGuideBgm) == 0x20);

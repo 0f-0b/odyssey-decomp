@@ -25,6 +25,13 @@ NERVES_MAKE_STRUCT(CameraVerticalAbsorber, FollowGround, FollowAbsolute, FollowC
                    FollowSlow, Absorb, Follow, FollowClimbPole);
 }  // namespace
 
+// TODO: Probably within `sead`
+static void setLength_(sead::Vector3f* vec, f32 length) {
+    f32 old_length = vec->length();
+    if (old_length > 0)
+        *vec *= length / old_length;
+}
+
 namespace al {
 CameraVerticalAbsorber::CameraVerticalAbsorber(const CameraPoser* cameraParent,
                                                bool isCameraPosAbsorb)
@@ -168,6 +175,70 @@ void CameraVerticalAbsorber::tryResetAbsorbVecIfInCollision(const sead::Vector3f
         setNerve(this, &NrvCameraVerticalAbsorber.FollowGround);
     else
         setNerve(this, &NrvCameraVerticalAbsorber.Follow);
+}
+
+static f32 getSpeed(IUseNerve* nerve, const CameraPoser* camera) {
+    if (alCameraPoserFunction::isPlayerTypeHighJump(camera))
+        return 0.02f;
+    if (al::isNerve(nerve, &NrvCameraVerticalAbsorber.FollowSlow))
+        return 0.02f;
+    if (al::isNerve(nerve, &NrvCameraVerticalAbsorber.FollowClimbPoleNoInterp))
+        return 0.3f;
+    if (al::isNerve(nerve, &NrvCameraVerticalAbsorber.FollowClimbPole))
+        return al::calcNerveValue(nerve, 60, 0.05f, 0.3f);
+    return 0.05f;
+}
+
+static void updateFollowSpeed(f32* outValue, IUseNerve* nerve, const CameraPoser* camera, f32 rateA,
+                              f32 rateB) {
+    f32 endValue = al::lerpValue(*outValue, getSpeed(nerve, camera), rateA);
+    *outValue = al::lerpValue(*outValue, endValue, rateB);
+}
+
+void CameraVerticalAbsorber::exeFollow() {
+    if (isFirstStep(this))
+        mLerp1 = getSpeed(this, mCameraPoser);
+    updateFollowSpeed(&mLerp1, this, mCameraPoser, 0.05f, 0.05f);
+    f32 old_dist = mAbsorbVec.length();
+    f32 old_lerp2 = mLerp2;
+    mLerp2 = al::lerpValue(mLerp2, 0.0f, 0.9f);
+    mLerp2 = al::lerpValue(old_lerp2, mLerp2, 0.9f);
+    setLength_(&mAbsorbVec,
+               old_dist * (1.0f - al::normalize(old_lerp2 - mLerp2, 0.0f, mAbsorbVec.length())));
+    mAbsorbVec *= 1.0f - mLerp1;
+}
+
+static bool isTargetOnSteepSlope(const CameraPoser* camera_poser) {
+    if (!alCameraPoserFunction::isExistSlopeCollisionUnderTarget(camera_poser))
+        return false;
+    if (alCameraPoserFunction::calcTargetSpeedH(camera_poser) < 10)
+        return false;
+    if (alCameraPoserFunction::getUnderTargetCollisionNormal(camera_poser).y <
+        sead::Mathf::sin(sead::Mathf::deg2rad(20)))
+        return false;
+    return true;
+}
+
+void CameraVerticalAbsorber::exeFollowGround() {
+    updateFollowSpeed(&mLerp1, this, mCameraPoser, 0.2f, 0.75f);
+    f32 old_dist = mAbsorbVec.length();
+    f32 old_lerp2 = mLerp2;
+    mLerp2 = al::lerpValue(mLerp2, 0.0f, 0.9f);
+    mLerp2 = al::lerpValue(old_lerp2, mLerp2, 0.9f);
+    setLength_(&mAbsorbVec,
+               old_dist * (1.0f - al::normalize(old_lerp2 - mLerp2, 0.0f, mAbsorbVec.length())));
+    mAbsorbVec *= 1.0f - mLerp1;
+    if (al::isGreaterEqualStep(this, 3) &&
+        !alCameraPoserFunction::isTargetCollideGround(mCameraPoser)) {
+        if (isTargetOnSteepSlope(mCameraPoser)) {
+            sead::Vector3f dir = mLookAtCamera.getPos() - mLookAtCamera.getAt();
+            if (tryNormalizeOrZero(&dir) && dir.y < sead::Mathf::sin(sead::Mathf::deg2rad(-15))) {
+                al::setNerve(this, &NrvCameraVerticalAbsorber.Follow);
+                return;
+            }
+        }
+        al::setNerve(this, &NrvCameraVerticalAbsorber.Absorb);
+    }
 }
 
 void CameraVerticalAbsorber::exeFollowAbsolute() {

@@ -5,7 +5,7 @@
 #include "Library/Nerve/NerveUtil.h"
 #include "Library/Play/Layout/SimpleLayoutAppearWaitEnd.h"
 
-#include "Layout/MapLayout.h"
+#include "Layout/MapLayoutFunction.h"
 
 namespace {
 NERVE_IMPL(PlayGuideMap, Hide);

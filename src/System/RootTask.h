@@ -14,6 +14,8 @@ public:
     void calc() override;
     void prepare() override;
 
+    GameSystem* getGameSystem() const { return mGameSystem; }
+
 private:
     GameSystem* mGameSystem = nullptr;
     sead::hostio::Node* mHostIoNode = nullptr;

@@ -8,8 +8,11 @@ namespace al {
 
 class ShaderHolder : public HioNode {
     SEAD_SINGLETON_DISPOSER(ShaderHolder)
+
 public:
+    s64 getShaderProgram(const char*) const;
     // incomplete
+
 private:
     // missing
 };

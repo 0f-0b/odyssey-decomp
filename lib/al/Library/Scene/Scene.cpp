@@ -83,7 +83,7 @@ void Scene::initializeAsync(const SceneInitInfo& info) {
 }
 
 void Scene::initDrawSystemInfo(const SceneInitInfo& info) {
-    mDrawSystemInfo = info.gameSystemInfo->drawSystemInfo;
+    mDrawSystemInfo = info.gameSystemInfo->getDrawSystemInfo();
 }
 
 void Scene::initSceneObjHolder(SceneObjHolder* sceneObjHolder) {
@@ -99,7 +99,7 @@ void Scene::initLiveActorKit(const SceneInitInfo& info, s32 maxActors, s32 maxPl
                              s32 maxCameras) {
     initLiveActorKitImpl(info, maxActors, maxPlayers, maxCameras);
 
-    DrawSystemInfo* drawSystemInfo = info.gameSystemInfo->drawSystemInfo;
+    DrawSystemInfo* drawSystemInfo = info.gameSystemInfo->getDrawSystemInfo();
     GraphicsInitArg graphicsInitArg = {getSceneDrawContext(this),
                                        drawSystemInfo->dockedRenderBuffer};
     graphicsInitArg._3c = maxCameras;
@@ -107,15 +107,15 @@ void Scene::initLiveActorKit(const SceneInitInfo& info, s32 maxActors, s32 maxPl
     mLiveActorKit->initGraphics(graphicsInitArg);
 
     mLiveActorKit->getGraphicsSystemInfo()->setApplicationMessageReceiver(
-        info.gameSystemInfo->applicationMessageReciever);
+        info.gameSystemInfo->getApplicationMessageReceiver());
 }
 
 void Scene::initLiveActorKitImpl(const SceneInitInfo& info, s32 maxActors, s32 maxPlayers,
                                  s32 maxCameras) {
     mLiveActorKit = new LiveActorKit(maxActors, maxPlayers);
     mLiveActorKit->setSceneDrawContext(getSceneDrawContext(this));
-    mLiveActorKit->setGamePadSystem(info.gameSystemInfo->gamePadSystem);
-    mLiveActorKit->setEffectSystem(info.gameSystemInfo->effectSystem);
+    mLiveActorKit->setGamePadSystem(info.gameSystemInfo->getGamePadSystem());
+    mLiveActorKit->setEffectSystem(info.gameSystemInfo->getEffectSystem());
     mLiveActorKit->init(maxCameras);
 }
 
@@ -125,13 +125,13 @@ void Scene::initLiveActorKitWithGraphics(const GraphicsInitArg& graphicsInitArg,
     initLiveActorKitImpl(info, maxActors, maxPlayers, maxCameras);
     mLiveActorKit->initGraphics(graphicsInitArg);
     mLiveActorKit->getGraphicsSystemInfo()->setApplicationMessageReceiver(
-        info.gameSystemInfo->applicationMessageReciever);
+        info.gameSystemInfo->getApplicationMessageReceiver());
 }
 
 void Scene::initLayoutKit(const SceneInitInfo& info) {
-    mLayoutKit = new LayoutKit(info.gameSystemInfo->fontHolder);
-    mLayoutKit->setEffectSystem(info.gameSystemInfo->effectSystem);
-    mLayoutKit->setLayoutSystem(info.gameSystemInfo->layoutSystem);
+    mLayoutKit = new LayoutKit(info.gameSystemInfo->getFontHolder());
+    mLayoutKit->setEffectSystem(info.gameSystemInfo->getEffectSystem());
+    mLayoutKit->setLayoutSystem(info.gameSystemInfo->getLayoutSystem());
     mLayoutKit->setDrawContext(getSceneDrawContext(this));
 }
 

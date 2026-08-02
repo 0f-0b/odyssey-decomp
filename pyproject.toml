@@ -1,0 +1,14 @@
+[project]
+name = "odyssey-decomp"
+version = "0.1.0"
+requires-python = ">=3.6"
+dependencies = [
+  "capstone",
+  "colorama",
+  "cxxfilt",
+  "dataclasses; python_version < '3.7'",
+  "levenshtein",
+  "pyelftools",
+  "toml",
+  "watchdog",
+]

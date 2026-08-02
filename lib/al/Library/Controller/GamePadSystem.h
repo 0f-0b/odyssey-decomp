@@ -19,6 +19,8 @@ public:
     sead::WSafeString getPadName(u8);
     s32 getPadPlayStyle(u8);  // unknown return type
 
+    void setAudioSystem(AudioSystem* audio_system) { mAudioSystem = audio_system; }
+
 private:
     bool isDisconnectPlayableImpl();
 

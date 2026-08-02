@@ -4,7 +4,7 @@
 #include <prim/seadSafeString.h>
 
 namespace al {
-struct GameSystemInfo;
+class GameSystemInfo;
 class GameDataHolderBase;
 class ScreenCaptureExecutor;
 class AudioDirector;

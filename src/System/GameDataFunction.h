@@ -210,6 +210,7 @@ bool isRaceStartFlag(GameDataHolderAccessor accessor);
 bool isRaceStartYukimaru(GameDataHolderAccessor accessor);
 bool isRaceStartYukimaruTutorial(GameDataHolderAccessor accessor);
 bool isRaceWin(GameDataHolderAccessor accessor);
+// TODO unknown parameter
 bool isRaceWin(GameDataHolderAccessor _accessor, s32 _unknown);
 bool isRaceResultSecond(GameDataHolderAccessor accessor);
 bool isRaceResultThird(GameDataHolderAccessor accessor);

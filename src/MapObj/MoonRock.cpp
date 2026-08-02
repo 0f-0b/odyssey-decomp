@@ -44,9 +44,9 @@ NERVE_HOST_TYPE_IMPL(MoonRock, DemoMoonSetStart)
 NERVE_HOST_TYPE_IMPL(MoonRock, EndDemoMoonSetStart)
 NERVE_HOST_TYPE_IMPL(MoonRock, ChangeScene)
 
-NERVES_MAKE_STRUCT(HostType, Sleep, Wait, Break, Reaction)
 NERVES_MAKE_NOSTRUCT(HostType, ReadyRequestStartDemoMoonSetStart, RequestStartDemoMoonSetStart,
                      DemoMoonSetStart, EndDemoMoonSetStart, ChangeScene)
+NERVES_MAKE_STRUCT(HostType, Sleep, Wait, Break, Reaction)
 }  // namespace
 
 static bool isMoonRockScenario(al::LiveActor* actor, const al::ActorInitInfo& info) {
@@ -185,7 +185,7 @@ GoalMark* MoonRock::getGoalMarkForCapTalk() const {
 }
 
 void MoonRock::attackSensor(al::HitSensor* self, al::HitSensor* other) {
-    if (al::isNerve(this, &ReadyRequestStartDemoMoonSetStart))
+    if (al::isNerve(this, &NrvHostType.Sleep))
         rs::sendMsgKillByMoonRockDemo(other, self);
 }
 
@@ -228,7 +228,7 @@ void MoonRock::exeReaction() {
     if (al::isActionEnd(this)) {
         al::killForceBeforeDemo(mGoalMark);
         al::tryAddRipple(this, al::getTrans(this), 1.0f, 2000.0f);
-        al::setNerve(this, &ReadyRequestStartDemoMoonSetStart);
+        al::setNerve(this, &NrvHostType.Sleep);
     }
 }
 

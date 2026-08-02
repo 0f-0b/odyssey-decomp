@@ -31,11 +31,11 @@ void initEventNodeMessage(const char16** outMessage, const EventFlowNode* node,
 const char* getParamIterKeyString(const EventFlowNodeInitInfo& info, const char* key);
 const char* getObjId(const EventFlowNodeInitInfo& info);
 const char* getPlacementStageName(const EventFlowNodeInitInfo& info);
-ActorInitInfo* getActorInitInfo(const EventFlowNodeInitInfo& info);
+const ActorInitInfo& getActorInitInfo(const EventFlowNodeInitInfo& info);
 void makeParamMessageString(const char16** outMessage, const EventFlowNodeInitInfo& info,
                             const char* key);
 void initEventFlowMovement(EventFlowMovement* movement, const EventFlowNodeInitInfo& info);
-LayoutInitInfo* getLayoutInitInfo(const EventFlowNodeInitInfo& info);
+const LayoutInitInfo& getLayoutInitInfo(const EventFlowNodeInitInfo& info);
 bool tryGetParamIter(ByamlIter* outIter, const EventFlowNodeInitInfo& info);
 bool tryGetParamIterKeyInt(s32* outValue, const EventFlowNodeInitInfo& info, const char* key);
 bool tryGetParamIterKeyFloat(f32* outValue, const EventFlowNodeInitInfo& info, const char* key);

@@ -217,24 +217,13 @@ def common_newline_eof(c, path):
     CHECK(lambda a: a == "", c.split("\n")[-1], "Files should end with a newline!", path)
 
 def common_sead_types(c, path):
-    FORBIDDEN_TYPES = ["int", "float", "short", "long", "double", "char16_t"]
     for line in c.splitlines():
-        for t in FORBIDDEN_TYPES:
-            index = 0
-            while index < len(line):
-                index = line.find(t, index)
-                if index == -1:
-                    break
-                if index > 0 and line[index - 1].isalnum():
-                    index += 1
-                    continue
-                if index + len(t) < len(line) and line[index + len(t)].isalnum():
-                    index += 1
-                    continue
-                FAIL(
-                    "Forbidden type used: " + t + ". Use equivalent of <basis/seadTypes.h> instead (f32, s32, u32, ...)",
-                    line, path)
-                return
+        match = re.search(r"\b(int|float|short|long|double|char16_t)\b", line)
+        if match:
+            FAIL(
+                "Forbidden type used: " + match.group() + ". Use equivalent of <basis/seadTypes.h> instead (f32, s32, u32, ...)",
+                line, path)
+            return
 
 def common_void_params(c, path):
     for line in c.splitlines():
@@ -318,9 +307,13 @@ def common_const_reference(c, path):
             continue
         if "AudioDirectorInitInfo" in line:
             continue
+        if "BgmAnimeSynchronizer*" in line:
+            continue
         if "ReplaceTimeInfo" in line:
             continue
         if "calcBendPosAndFront" in line:
+            continue
+        if "checkSameBeatAnimInfo" in line:
             continue
         if "cleanupResGraphicsFile" in line:
             continue

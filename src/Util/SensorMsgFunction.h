@@ -1595,8 +1595,6 @@ SENSOR_MSG(BossMagmaQueryToBubble);
 SENSOR_MSG(TransferHack);
 SENSOR_MSG(RequestTransferHack);
 SENSOR_MSG(InitHack);
-SENSOR_MSG(ShineReaction);
-SENSOR_MSG(BreakBySword);
 SENSOR_MSG_WITH_DATA(RequestPlayerWaitAnim, (const char*, Anim));
 SENSOR_MSG_WITH_DATA(PunchGuard, (s32, PunchGuard), (s32, TeamId));
 SENSOR_MSG_WITH_DATA(FishingUpImmediately, (const sead::Vector3f*, FloatPos),

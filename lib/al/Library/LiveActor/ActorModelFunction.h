@@ -144,7 +144,8 @@ void getModelUniformBlock(const LiveActor* actor, const char*);
 void findModelUniformBlock(const LiveActor* actor, const char*);
 void swapModelUniformBlock(agl::UniformBlock*);
 void flushModelUniformBlock(agl::UniformBlock*);
-void getModelDrawCategoryFromShaderAssign(bool*, bool*, bool*, bool*, const LiveActor* actor);
+void getModelDrawCategoryFromShaderAssign(bool* deferred, bool* deferred_translucent, bool* forward,
+                                          bool* indirect, const LiveActor* actor);
 void trySetOcclusionQueryBox(LiveActor* actor, f32);
 void trySetOcclusionQueryBox(LiveActor* actor, const sead::BoundBox3f&);
 void trySetOcclusionQueryCenter(LiveActor* actor, const sead::Vector3f*);

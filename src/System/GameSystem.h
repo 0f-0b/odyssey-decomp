@@ -1,54 +1,51 @@
 #pragma once
 
+#include "Library/Audio/AudioInfo.h"
 #include "Library/Nerve/NerveExecutor.h"
 
 namespace al {
-class Sequence;
-struct GameSystemInfo;
-class AudioSystem;
-template <typename T>
-class AudioInfoListWithParts;
 class AccountHolder;
-class NetworkSystem;
-class HtmlViewer;
-class GamePadSystem;
 class ApplicationMessageReceiver;
+class AudioSystem;
+class GamePadSystem;
+class GameSystemInfo;
+class HtmlViewer;
+class NetworkSystem;
+class Sequence;
 class WaveVibrationHolder;
-class AudioResourceLoadGroupInfo;
 }  // namespace al
-
 class GameConfigData;
 class ProjectNfpDirector;
 
 class GameSystem : public al::NerveExecutor {
 public:
     GameSystem();
+    ~GameSystem() override;
+
     virtual void init();
     virtual void movement();
     void setPadName();
-    bool tryChangeSequence(const char*);
+    bool tryChangeSequence(const char* name);
     void drawMain();
 
     void exePlay();
 
 private:
-    al::Sequence* mSequence;
-    al::GameSystemInfo* mSystemInfo;
-    al::AudioSystem* mAudioSystem;
-    al::AudioInfoListWithParts<al::AudioResourceLoadGroupInfo>* mAudioInfoList;
-    al::AccountHolder* mAccountHolder;
-    al::NetworkSystem* mNetworkSystem;
-    void* field_40;
-    al::HtmlViewer* mHtmlViewer;
-    ProjectNfpDirector* mNfpDirector;
-    al::GamePadSystem* mGamePadSystem;
-    al::ApplicationMessageReceiver* mApplicationMessageReceiver;
-    al::WaveVibrationHolder* mWaveVibrationHolder;
-    bool mIsSinglePlay;
-    GameConfigData* mGameConfigData;
-    bool mIsSequenceSetupIncomplete;
+    al::Sequence* mSequence = nullptr;
+    al::GameSystemInfo* mGameSystemInfo = nullptr;
+    al::AudioSystem* mAudioSystem = nullptr;
+    al::AudioResourceLoadGroupInfoList* mAudioLoadGroupInfoList = nullptr;
+    al::AccountHolder* mAccountHolder = nullptr;
+    al::NetworkSystem* mNetworkSystem = nullptr;
+    void* _0x40 = nullptr;
+    al::HtmlViewer* mHtmlViewer = nullptr;
+    ProjectNfpDirector* mNfpDirector = nullptr;
+    al::GamePadSystem* mGamePadSystem = nullptr;
+    al::ApplicationMessageReceiver* mApplicationMessageReceiver = nullptr;
+    al::WaveVibrationHolder* mWaveVibrationHolder = nullptr;
+    bool mIsSeparatePlay = false;
+    GameConfigData* mStashedGameConfigData = nullptr;
+    bool mHasStashedGameConfigData = false;
 };
 
-namespace GameSystemFunction {
-GameSystem* getGameSystem();
-}
+static_assert(sizeof(GameSystem) == 0x88);

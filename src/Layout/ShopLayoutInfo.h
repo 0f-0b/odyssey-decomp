@@ -15,6 +15,11 @@ enum class ItemType : s32 {
     Moon,
 };
 
+struct ItemAmiiboInfo {
+    s32 characterId;
+    s32 numberingId;
+};
+
 enum class CoinType : s32 {
     Invalid = -1,
     Coin,

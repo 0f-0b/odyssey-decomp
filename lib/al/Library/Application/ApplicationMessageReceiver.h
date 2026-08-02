@@ -16,6 +16,12 @@ public:
 
     nn::oe::OperationMode getCachedOperationMode() const { return mOperationMode; }
 
+    nn::oe::PerformanceMode getPerformanceMode() const { return mPerformanceMode; }
+
+    bool isUpdatedOperationMode() const { return mIsUpdatedOperationMode; }
+
+    bool isUpdatedPerformanceMode() const { return mIsUpdatedPerformanceMode; }
+
 private:
     bool mIsUpdatedOperationMode = false;
     bool mIsUpdatedPerformanceMode = false;

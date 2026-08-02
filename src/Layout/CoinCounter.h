@@ -43,3 +43,5 @@ private:
     s32 mAnimationCount = 0;
     bool mIsUpdateCount = true;
 };
+
+static_assert(sizeof(CoinCounter) == 0x150);

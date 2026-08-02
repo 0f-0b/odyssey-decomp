@@ -15,14 +15,14 @@ public:
     struct Requester {
         Requester(const LiveActor* actor, const IUseEventFlowData* user, const ActorInitInfo& info)
             : actor(actor), user(user) {
-            getArg(&ballonOrder, info, "BalloonOrder");
-            tryGetArg(&ballonShowStep, info, "BallonShowStep");
+            getArg(&balloonOrder, info, "BalloonOrder");
+            tryGetArg(&balloonShowStep, info, "BalloonShowStep");
         }
 
         const LiveActor* actor;
         const IUseEventFlowData* user;
-        s32 ballonOrder = 0;
-        s32 ballonShowStep = 180;
+        s32 balloonOrder = 0;
+        s32 balloonShowStep = 180;
     };
 
     BalloonOrderGroup(const PlacementInfo& info);

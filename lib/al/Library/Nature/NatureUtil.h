@@ -45,24 +45,24 @@ bool calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, const LiveActor*, con
 bool calcFindCloudSurface(sead::Vector3f*, sead::Vector3f*, const LiveActor*, const sead::Vector3f&,
                           const sead::Vector3f&, f32);
 
-bool tryAddRipple(const NatureDirector*, const sead::Vector3f&, f32, f32);
-bool tryAddRippleTiny(const LiveActor*);
-bool tryAddRippleSmall(const LiveActor*, const sead::Vector3f&);
-bool tryAddRippleTiny(const LiveActor*, const sead::Vector3f&);
-bool tryAddRippleSmall(const LiveActor*);
-bool tryAddRippleMiddle(const LiveActor*);
-bool tryAddRippleMiddle(const LiveActor*, const sead::Vector3f&);
-bool tryAddRippleLarge(const LiveActor*);
-bool tryAddRippleLarge(const LiveActor*, const sead::Vector3f&);
-bool tryAddRippleWithRange(const LiveActor*, const sead::Vector3f&, f32, f32, f32, f32);
-bool tryAddRipple(const LiveActor*, const sead::Vector3f&, f32, f32);
-bool tryAddRippleRandomBlur(const LiveActor*, const sead::Vector3f&, f32, f32, f32);
-bool tryAddQuadRipple(const LiveActor*, const sead::Vector3f&, const sead::Vector3f&,
-                      const sead::Vector3f&, const sead::Vector3f&, f32);
-bool tryAddQuadRipple(const LiveActor*, const sead::BoundBox3f&, const sead::Vector3f&,
-                      const sead::Quatf&, f32, f32);
-bool tryAddQuadRippleByBoxRotateY(const LiveActor*, const sead::BoundBox3f&, const sead::Vector3f&,
-                                  f32, f32, f32);
+bool tryAddRipple(const NatureDirector* director, const sead::Vector3f& pos, f32, f32);
+bool tryAddRippleTiny(const LiveActor* actor);
+bool tryAddRippleSmall(const LiveActor* actor, const sead::Vector3f& pos);
+bool tryAddRippleTiny(const LiveActor* actor, const sead::Vector3f& pos);
+bool tryAddRippleSmall(const LiveActor* actor);
+bool tryAddRippleMiddle(const LiveActor* actor);
+bool tryAddRippleMiddle(const LiveActor* actor, const sead::Vector3f& pos);
+bool tryAddRippleLarge(const LiveActor* actor);
+bool tryAddRippleLarge(const LiveActor* actor, const sead::Vector3f& pos);
+bool tryAddRippleWithRange(const LiveActor* actor, const sead::Vector3f& pos, f32, f32, f32, f32);
+bool tryAddRipple(const LiveActor* actor, const sead::Vector3f& pos, f32, f32);
+bool tryAddRippleRandomBlur(const LiveActor* actor, const sead::Vector3f& pos, f32, f32, f32 blur);
+bool tryAddQuadRipple(const LiveActor* actor, const sead::Vector3f& p1, const sead::Vector3f& p2,
+                      const sead::Vector3f& p3, const sead::Vector3f& p4, f32);
+bool tryAddQuadRipple(const LiveActor* actor, const sead::BoundBox3f& box,
+                      const sead::Vector3f& pos, const sead::Quatf& quat, f32, f32 scale);
+bool tryAddQuadRippleByBoxRotateY(const LiveActor* actor, const sead::BoundBox3f& box,
+                                  const sead::Vector3f& pos, f32, f32 degrees, f32 scale);
 
 void approachWaterSurfaceSpringDumper(LiveActor*, const WaterSurfaceFinder*, f32, f32, f32, f32,
                                       f32);

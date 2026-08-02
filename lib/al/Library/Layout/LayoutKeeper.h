@@ -20,23 +20,26 @@ class LayoutKeeper {
 public:
     LayoutKeeper();
 
-    void initScreen(eui::Screen*);
+    void initScreen(eui::Screen* screen);
     void initLayout(nn::ui2d::Layout* layout, LayoutResource* resource);
-    void initDrawInfo(nn::ui2d::DrawInfo*);
-    void initTagProcessor(CustomTagProcessor*);
-    LayoutPaneGroup* getGroup(const char*) const;
-    LayoutPaneGroup* getGroup(s32) const;
+    void initDrawInfo(nn::ui2d::DrawInfo* draw_info);
+    void initTagProcessor(CustomTagProcessor* tag_processor);
+    LayoutPaneGroup* getGroup(const char* name) const;
+    LayoutPaneGroup* getGroup(s32 index) const;
     s32 getGroupNum() const;
     void calcAnim(bool);
     void draw();
 
+    nn::ui2d::Layout* getLayout() const { return mLayout; }
+
 private:
-    CustomTagProcessor* mTagProcessor;
-    nn::ui2d::DrawInfo* mDrawInfo;
-    nn::ui2d::Layout* mLayout;
-    void* filler_18[2];
-    eui::Screen* mScreen;
-    void* filler_30;
+    CustomTagProcessor* mTagProcessor = nullptr;
+    nn::ui2d::DrawInfo* mDrawInfo = nullptr;
+    nn::ui2d::Layout* mLayout = nullptr;
+    LayoutPaneGroup** mGroups = nullptr;
+    s32 mGroupNum = 0;
+    eui::Screen* mScreen = nullptr;
+    s64 _0x30 = 0;
 };
 
 static_assert(sizeof(LayoutKeeper) == 0x38);

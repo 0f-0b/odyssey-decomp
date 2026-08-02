@@ -9,7 +9,7 @@
 #include "Library/Math/MathUtil.h"
 #include "Library/Math/MatrixUtil.h"
 
-void recursivelyInvalidateOcclusionQuery(al::LiveActor* actor) {
+static void recursivelyInvalidateOcclusionQuery(al::LiveActor* actor) {
     al::invalidateOcclusionQuery(actor);
     if (al::isExistSubActorKeeper(actor))
         for (s32 i = 0; i < al::getSubActorNum(actor); i++)

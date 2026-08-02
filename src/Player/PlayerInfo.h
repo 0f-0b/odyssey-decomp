@@ -51,6 +51,8 @@ public:
 
     HackCap* getHackCap() const { return mHackCap; }
 
+    PlayerJudgeDead* getJudgeDead() const { return mJudgeDead; }
+
 private:
     PlayerModelChangerHakoniwa* mModelChangerHakoniwa = nullptr;
     PlayerOxygen* mOxygen = nullptr;

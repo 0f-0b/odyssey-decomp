@@ -1,33 +1,33 @@
 #pragma once
 
 #include <gfx/seadColor.h>
+#include <gfx/seadViewport.h>
 #include <math/seadMatrix.h>
 #include <math/seadVector.h>
 
+namespace sead {
+class Viewport;
+}
+
 namespace agl {
+namespace sdw {
+class DepthShadow;
+}
 class TextureData;
 }  // namespace agl
 
-namespace agl::sdw {
-class DepthShadow;
-}  // namespace agl::sdw
-
-namespace sead {
-class Viewport;
-}  // namespace sead
-
 namespace al {
 class Effect;
-class EffectUserInfo;
-class MtxPtrHolder;
-class EffectSystemInfo;
 class EffectPrefixType;
+class EffectResourceInfo;
 class EffectSystem;
 class EffectSystemInfo;
-class EffectResourceInfo;
-class IUseEffectKeeper;
-class ModelKeeper;
+class EffectUserInfo;
 class IUseCamera;
+class IUseEffectKeeper;
+class IUseLayout;
+class ModelKeeper;
+class MtxPtrHolder;
 
 class EffectKeeper {
 public:
@@ -84,7 +84,9 @@ void emitEffectIfExist(al::IUseEffectKeeper* effectKeeperHolder, const char* eff
 
 namespace alEffectKeeperInitFunction {
 void setupModelToEffectKeeper(al::EffectKeeper* effectKeeper, const al::ModelKeeper* modelKeeper);
+void setupLayoutToEffectKeeper(al::EffectKeeper* effectKeeper, const al::IUseLayout* iUseLayout);
 void setupCameraToEffectKeeper(al::EffectKeeper* effectKeeper, const al::IUseCamera* iUseCamera);
+void updateNamedMtxPtr(al::EffectKeeper* effectKeeper, const char* name);
 }  // namespace alEffectKeeperInitFunction
 
 namespace alEffectSystemFunction {

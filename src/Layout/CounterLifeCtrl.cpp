@@ -216,12 +216,6 @@ void CounterLifeCtrl::waitAllLayout() {
     setCount(GameDataFunction::getPlayerHitPoint(mCounterLife));
 }
 
-void CounterLifeCtrl::updateTransAllLayout() {
-    updateTrans(mCounterLife);
-    updateTrans(mCounterLifeUp);
-    updateTrans(mCounterLifeKids);
-}
-
 bool CounterLifeCtrl::tryChangeCount() {
     if (GameDataFunction::getPlayerHitPoint(mCounterLife) == mTargetCount)
         return false;
@@ -251,7 +245,9 @@ void CounterLifeCtrl::exeDead() {
 void CounterLifeCtrl::exeCountStartFadeOut() {
     if (al::isFirstStep(this)) {
         appearAllLayout();
-        startActionAllLayout("FadeOut", nullptr);
+        al::startAction(mCounterLife, "FadeOut", nullptr);
+        al::startAction(mCounterLifeUp, "FadeOut", nullptr);
+        al::startAction(mCounterLifeKids, "FadeOut", nullptr);
     }
     if (al::isActionEnd(getCurrentLayout(), nullptr))
         al::setNerve(this, &CountStartFadeIn);
@@ -405,13 +401,6 @@ void CounterLifeCtrl::exeDemoLifeMaxUpStartFadeIn() {
         al::setNerve(this, &NrvCounterLifeCtrl.DemoLifeMaxUpAddLife);
 }
 
-void CounterLifeCtrl::updateTrans(al::LayoutActor* layout) {
-    sead::Vector3f pos = sead::Vector3f::zero;
-    calcLayoutTransByPlayer(&pos);
-    sead::Vector2f pos2 = {pos.x, pos.y};
-    al::setPaneLocalTrans(layout, "All", pos2);
-}
-
 void CounterLifeCtrl::exeDemoLifeMaxUpAddLife() {
     if (al::isFirstStep(this))
         mTargetCount = GameDataFunction::getPlayerHitPointMaxCurrent(mCounterLife);
@@ -433,6 +422,19 @@ void CounterLifeCtrl::exeDemoLifeMaxUpMove() {
     al::setPaneLocalTrans(mCounterLifeUp, "All", pos);
     if (al::isGreaterEqualStep(this, 27))
         al::setNerve(this, &NrvCounterLifeCtrl.DemoLifeMaxUpUnite);
+}
+
+void CounterLifeCtrl::updateTrans(al::LayoutActor* layout) {
+    sead::Vector3f pos = sead::Vector3f::zero;
+    calcLayoutTransByPlayer(&pos);
+    sead::Vector2f pos2 = {pos.x, pos.y};
+    al::setPaneLocalTrans(layout, "All", pos2);
+}
+
+void CounterLifeCtrl::updateTransAllLayout() {
+    updateTrans(mCounterLife);
+    updateTrans(mCounterLifeUp);
+    updateTrans(mCounterLifeKids);
 }
 
 void CounterLifeCtrl::calcLayoutTransByPlayer(sead::Vector3f* out) {

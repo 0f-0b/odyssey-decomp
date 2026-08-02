@@ -13,7 +13,7 @@ class GameDataFile;
 
 class HintPhotoData : public ByamlSave {
 public:
-    HintPhotoData(const GameDataFile*);
+    HintPhotoData(const GameDataFile* game_data_file);
     void init();
     void saveHintPhoto(const char*);
     bool checkSavedHintPhoto(const char*) const;

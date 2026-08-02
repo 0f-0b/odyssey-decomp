@@ -16,7 +16,7 @@ class BgmChangeableParams {
 public:
     BgmChangeableParams();
 
-    void operator=(const BgmChangeableParams& value);
+    BgmChangeableParams& operator=(const BgmChangeableParams& value);
 
     void calcPitch(f32 value);
 
@@ -40,7 +40,7 @@ struct BgmRegionChangeParams {
 
     BgmRegionChangeParams(const BgmRegionChangeParams& other);
 
-    void operator=(const BgmRegionChangeParams& other);
+    BgmRegionChangeParams& operator=(const BgmRegionChangeParams& other);
 
     bool operator==(const BgmRegionChangeParams& other) const;
 

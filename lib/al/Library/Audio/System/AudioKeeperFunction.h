@@ -2,25 +2,19 @@
 
 #include <basis/seadTypes.h>
 
+#include "Library/Audio/AudioInfo.h"
+
 namespace aal {
 class IAudioFrameProcess;
 }
 
 namespace al {
 class AudioDirector;
-class AudioEffectDataBase;
-template <typename T>
-class AudioInfoListWithParts;
-class AudioResourceLoadGroupInfo;
-class AudioResourceLoadingInfo;
-class AudioResourcePlayerKeeper;
 class AudioSystem;
-class AudioSystemDebug;
 struct AudioSystemInfo;
-class AudioSystemInitInfo;
 class BgmDataBase;
 class BgmMusicalInfo;
-struct GameSystemInfo;
+class GameSystemInfo;
 class IUseSeadAudioPlayer;
 class PadRumbleDirector;
 class Resource;
@@ -43,10 +37,10 @@ al::Resource* tryGetAudioDebugStationedResource(const char*, const char*);
 bool addAudiioFrameProccess(al::AudioDirector*, aal::IAudioFrameProcess*);
 void removeAudiioFrameProccess(al::AudioDirector*, aal::IAudioFrameProcess*);
 void tryLoadAddonSoundArchive(const char*, al::SeadAudioPlayer*);
-void loadAudioResource(const char*, al::AudioInfoListWithParts<al::AudioResourceLoadGroupInfo>*,
-                       al::SeadAudioPlayer*, al::SeadAudioPlayer*);
-void destroyAudioResource(const char*, al::AudioInfoListWithParts<al::AudioResourceLoadGroupInfo>*,
-                          al::SeadAudioPlayer*, al::SeadAudioPlayer*);
+void loadAudioResource(const char*, al::AudioResourceLoadGroupInfoList*, al::SeadAudioPlayer*,
+                       al::SeadAudioPlayer*);
+void destroyAudioResource(const char*, al::AudioResourceLoadGroupInfoList*, al::SeadAudioPlayer*,
+                          al::SeadAudioPlayer*);
 al::SeadAudioPlayer* tryFindAudioPlayerRegistedSoundMemoryPoolHandler(const char*,
                                                                       al::SeadAudioPlayer*,
                                                                       al::SeadAudioPlayer*);
@@ -81,42 +75,3 @@ s32 getCurrentHeapStateLevel(al::IUseSeadAudioPlayer*);
 u64 getSoundResourceHeapFreeSize(al::IUseSeadAudioPlayer*);
 void resetDataDependedStage(const al::AudioDirector*, const char*, s32);
 }  // namespace alAudioSystemFunction
-
-namespace al {
-class AudioSystem {
-public:
-    AudioSystem();
-
-    void init(const AudioSystemInitInfo&);
-    void initDataBase();
-    void initResourcePlayer(const AudioSystemInitInfo&);
-    void applyDeviceVolume();
-    void updateHWOutputSetting();
-    void changeFinalMixInputBgmChVolume();
-    void initDebugModule(const AudioSystemInitInfo&);
-    void initSystemInfo();
-    void update();
-    void finalize();
-    void addAudiioFrameProccess(aal::IAudioFrameProcess*);
-    void removeAudiioFrameProccess(aal::IAudioFrameProcess*);
-    void pauseSystemImmediately(bool, const char*, bool);
-
-    AudioSystemInfo* getAudioSystemInfo() const { return mAudioSystemInfo; }
-
-private:
-    AudioResourcePlayerKeeper* mAudioResourcePlayerKeeper;
-    AudioResourceLoadingInfo* mAudioResourceLoadingInfo;
-    SeDataBase* mSeDataBase;
-    BgmDataBase* mBgmDataBase;
-    BgmMusicalInfo* mBgmMusicalInfo;
-    AudioSystemInfo* mAudioSystemInfo;
-    AudioSystemDebug* mAudioSystemDebug;
-    f32 mMasterVolume;
-    f32 mTvOutputVolume;
-    f32 mConsoleVolume;
-    AudioEffectDataBase* mAudioEffectDataBase;
-    char filler[0x90];
-};
-
-static_assert(sizeof(AudioSystem) == 0xe0);
-}  // namespace al

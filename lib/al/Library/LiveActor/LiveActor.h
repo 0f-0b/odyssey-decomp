@@ -15,34 +15,35 @@
 #include "Library/Stage/IUseStageSwitch.h"
 
 namespace al {
-class ActorPoseKeeperBase;
-class ActorExecuteInfo;
 class ActorActionKeeper;
+class ActorExecuteInfo;
 class ActorItemKeeper;
+class ActorOcclusionKeeper;
+class ActorParamHolder;
+class ActorPoseKeeperBase;
+class ActorPrePassLightKeeper;
 class ActorScoreKeeper;
+class AudioKeeper;
 class Collider;
 class CollisionParts;
-class ModelKeeper;
-class NerveKeeper;
-class HitSensorKeeper;
-class ScreenPointKeeper;
 class EffectKeeper;
-class AudioKeeper;
 class HitReactionKeeper;
-class StageSwitchKeeper;
+class HitSensor;
+class HitSensorKeeper;
+class ModelKeeper;
+class NatureDirector;
+class NerveKeeper;
 class RailKeeper;
+class ScreenPointer;
+class ScreenPointKeeper;
+class ScreenPointTarget;
+class SensorMsg;
 class ShadowKeeper;
-class ActorPrePassLightKeeper;
-class ActorOcclusionKeeper;
+class StageSwitchKeeper;
 class SubActorKeeper;
-class ActorParamHolder;
+struct ActorInitInfo;
 struct ActorSceneInfo;
 struct LiveActorFlag;
-struct ActorInitInfo;
-class HitSensor;
-class SensorMsg;
-class ScreenPointer;
-class ScreenPointTarget;
 
 class LiveActor : public IUseNerve,
                   public IUseEffectKeeper,

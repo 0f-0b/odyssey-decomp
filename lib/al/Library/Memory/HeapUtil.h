@@ -1,6 +1,7 @@
 #pragma once
 
 #include <heap/seadHeap.h>
+#include <heap/seadHeapMgr.h>
 
 namespace al {
 class AudioResourceDirector;
@@ -30,4 +31,20 @@ void destroyWorldResourceHeap(bool removeCategory);
 void loadPlayerResource(const char* categoryName);
 void freePlayerResource(const char* categoryName);
 void setAudioResourceDirectorToMemorySystem(AudioResourceDirector* audioResourceDirector);
+
+class SceneHeapSetter : public sead::ScopedCurrentHeapSetter {
+public:
+    SceneHeapSetter();
+
+private:
+    sead::Heap* mHeap = getSceneHeap();
+};
+
+static_assert(sizeof(SceneHeapSetter) == 0x10);
+
+void copyMemoryFast(u32* dest, const u32* src, u32 nbytes);
+void copyMemory(void* dest, const void* src, u32 nbytes);
+bool tryCompressByZlib(u8*, u32*, const u8*, u32);
+bool tryDecompressByZlib(u8*, u32*, const u8*, u32);
+sead::Heap* getCurrentHeap();
 }  // namespace al

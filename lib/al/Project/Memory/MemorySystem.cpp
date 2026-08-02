@@ -7,10 +7,10 @@
 
 #include "Library/Base/Macros.h"
 #include "Library/Base/StringUtil.h"
+#include "Library/Memory/HeapUtil.h"
 #include "Library/Resource/Resource.h"
 #include "Library/Resource/ResourceFunction.h"
 #include "Library/Yaml/ByamlIter.h"
-#include "Project/Memory/Util.h"
 
 namespace al {
 
@@ -83,7 +83,7 @@ ALWAYS_INLINE u64 MemorySystem::getSceneResourceHeapSize(const char* stageName) 
 
     if (stageName && mIsExistFileResource) {
         ByamlIter heapSizeMap =
-            findOrCreateResource("SystemData/MemorySystem", 0LL)->getByml("HeapSizeDefine");
+            findOrCreateResource("SystemData/MemorySystem", nullptr)->getByml("HeapSizeDefine");
 
         for (s32 i = 0; i < heapSizeMap.getSize(); i++) {
             ByamlIter heapSizeEntry;
