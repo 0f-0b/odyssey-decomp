@@ -3,8 +3,13 @@
 #include <prim/seadSafeString.h>
 
 namespace al {
+
 class HtmlViewer {
 public:
-    void call(const char*, sead::BufferedSafeStringBase<char>*) const;
+    HtmlViewer();
+    void call(const char*, sead::BufferedSafeString*) const;
 };
+
+static_assert(sizeof(HtmlViewer) == 0x1);
+
 }  // namespace al

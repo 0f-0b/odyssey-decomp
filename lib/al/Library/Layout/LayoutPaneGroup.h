@@ -1,6 +1,10 @@
 #pragma once
 
-#include <nn/ui2d/Layout.h>
+#include <basis/seadTypes.h>
+
+namespace nn::ui2d {
+class Layout;
+}
 
 namespace eui {
 class Animator;
@@ -30,8 +34,13 @@ public:
     void createAnimator(nn::ui2d::Layout* layout);
     void animate(bool);
 
+    const char* getName() const { return mName; }
+
 private:
-    void* filler[5];
+    const char* mName;
+    void* _padding[0x4];
 };
+
+static_assert(sizeof(LayoutPaneGroup) == 0x28);
 
 }  // namespace al

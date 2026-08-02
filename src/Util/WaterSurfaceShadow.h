@@ -20,6 +20,11 @@ public:
     void setScale(f32 scaleX, f32 scaleZ);
     void setQuat(const sead::Quatf& quat);
 
+    void setMaxDistance(f32 max_distance, f32 end_frame) {
+        mMaxDistance = max_distance;
+        mEndFrame = end_frame;
+    }
+
 private:
     al::LiveActor* mActor = nullptr;
     al::WaterSurfaceFinder* mWaterSurfaceFinder = nullptr;

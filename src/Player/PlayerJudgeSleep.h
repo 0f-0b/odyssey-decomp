@@ -7,8 +7,11 @@ class PlayerStateWait;
 class PlayerJudgeSleep : public IJudge {
 public:
     PlayerJudgeSleep(const PlayerStateWait* stateWait);
-    void reset() override {};
-    void update() override {};
+
+    void reset() override {}
+
+    void update() override {}
+
     bool judge() const override;
 
 private:

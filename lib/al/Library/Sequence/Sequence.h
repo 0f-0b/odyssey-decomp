@@ -7,12 +7,12 @@
 #include "Library/Sequence/IUseSceneCreator.h"
 
 namespace al {
-struct GameSystemInfo;
+class AudioDirector;
+class GameSystemInfo;
+class Scene;
+struct AudioSystemInfo;
 struct DrawSystemInfo;
 struct SequenceInitInfo;
-struct AudioSystemInfo;
-class AudioDirector;
-class Scene;
 
 class Sequence : public NerveExecutor, public IUseAudioKeeper, public IUseSceneCreator {
 public:
@@ -41,7 +41,11 @@ public:
     void initDrawSystemInfo(const SequenceInitInfo&);
     AudioSystemInfo* getAudioSystemInfo();
 
+    const char* getName() const { return mName.cstr(); }
+
     DrawSystemInfo* getDrawInfo() const { return mDrawSystemInfo; }
+
+    bool isAlive() const { return mIsAlive; }
 
 private:
     sead::FixedSafeString<0x40> mName;

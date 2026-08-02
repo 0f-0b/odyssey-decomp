@@ -23,7 +23,7 @@ void BalloonOrderGroup::registerRequester(const LiveActor* actor, const IUseEven
 
     for (s32 i = 0; i < mRequesterCount; i++) {
         Requester* requesterTmp = mRequesters[i];
-        if (requester->ballonOrder < requesterTmp->ballonOrder) {
+        if (requester->balloonOrder < requesterTmp->balloonOrder) {
             mRequesters[i] = requester;
             requester = requesterTmp;
         }
@@ -58,7 +58,7 @@ void BalloonOrderGroup::update(const sead::Vector3f& position) {
 
     mShowStep++;
 
-    if (mRequesters[mActiveRequesterIdx]->ballonShowStep <= mShowStep) {
+    if (mRequesters[mActiveRequesterIdx]->balloonShowStep <= mShowStep) {
         mShowStep = 0;
         mActiveRequesterIdx =
             mRequesterCount > mActiveRequesterIdx + 1 ? mActiveRequesterIdx + 1 : 0;

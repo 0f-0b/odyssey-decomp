@@ -17,7 +17,6 @@ NERVES_MAKE_STRUCT(TestMusaGraph, Wait)
 
 TestMusaGraph::TestMusaGraph(const char* name) : al::LiveActor(name) {}
 
-// NON-MATCHING: Different stack pointer reference https://decomp.me/scratch/IDKIq
 void TestMusaGraph::init(const al::ActorInitInfo& info) {
     al::initActorSceneInfo(this, info);
     al::initActorPoseTRSV(this);

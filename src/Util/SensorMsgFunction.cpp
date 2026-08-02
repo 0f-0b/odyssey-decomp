@@ -1260,7 +1260,6 @@ bool isMsgBreakCollapseSandHill(const al::SensorMsg* msg) {
 
 bool isMsgPlayerDamage(const al::SensorMsg* msg) {
     return al::isMsgEnemyAttack(msg) || isMsgEnemyAttackTRex(msg) || al::isMsgExplosion(msg) ||
-
            (isMsgFireDamageAll(msg) && !al::isMsgPlayerFireBallAttack(msg)) ||
            isMsgPoisonDamageAll(msg) || isMsgBullAttack(msg) || isMsgBossKnuckleFallAttack(msg) ||
            isMsgEnemyAttackFireCollision(msg) || isMsgEnemyAttack3D(msg) ||

@@ -1,5 +1,7 @@
 #include "Library/Math/MatrixUtil.h"
 
+#include <nn/util/MathTypes.h>
+
 #include "Library/Math/MathUtil.h"
 
 namespace al {
@@ -279,5 +281,16 @@ bool tryNormalizeMtxScaleOrIdentity(sead::Matrix34f* outMtx, const sead::Matrix3
 void preScaleMtx(sead::Matrix34f* outMtx, const sead::Vector3f& scale) {
     outMtx->scaleBases(scale.x, scale.y, scale.z);
 }
+
+void makeMtx34f(sead::Matrix34f* out, const nn::util::neon::MatrixColumnMajor4x3fType& in) {
+    float32x4_t a = in.m[0];
+    float32x4_t b = in.m[1];
+    float32x4_t c = in.m[2];
+    vst1q_f32(out->m[0], a);
+    vst1q_f32(out->m[1], b);
+    vst1q_f32(out->m[2], c);
+}
+
+void makeMtx44f(sead::Matrix44f*, const nn::util::neon::MatrixColumnMajor4x4fType&) {}
 
 }  // namespace al

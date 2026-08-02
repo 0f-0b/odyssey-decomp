@@ -8,6 +8,7 @@
 #include "Library/HostIO/HioNode.h"
 #include "Library/Layout/IUseLayout.h"
 #include "Library/Layout/IUseLayoutAction.h"
+#include "Library/Layout/LayoutActionFunction.h"
 #include "Library/Message/IUseMessageSystem.h"
 #include "Library/Nerve/IUseNerve.h"
 #include "Library/Scene/IUseSceneObjHolder.h"
@@ -80,6 +81,8 @@ public:
     void syncAction();
 
     bool isAlive() const { return mIsAlive; }
+
+    bool isAliveAndActionEnd() const { return mIsAlive && isActionEnd(this, nullptr); }
 
     LayoutExecuteInfo* getExecuteInfo() const { return mExecuteInfo; }
 

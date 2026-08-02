@@ -4,7 +4,7 @@
 
 class AirBubble : public al::LiveActor {
 public:
-    AirBubble(const char*, bool);
+    AirBubble(const char*, bool = false);
 
     void init(const al::ActorInitInfo& info) override;
     void endClipped() override;

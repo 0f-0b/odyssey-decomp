@@ -1,6 +1,9 @@
 #pragma once
 
+#include <common/aglGPUMemAddr.h>
 #include <container/seadPtrArray.h>
+#include <gfx/seadCamera.h>
+#include <gfx/seadProjection.h>
 #include <math/seadMatrix.h>
 #include <math/seadVector.h>
 
@@ -20,7 +23,9 @@ namespace al {
 class AreaObj;
 class ExecuteDirector;
 class GraphicsSystemInfo;
+class OrthoRenderer;
 class SceneCameraInfo;
+class UniformBlock;
 
 struct CameraSubAreaScreenInfo {
     CameraSubAreaScreenInfo(const sead::Vector3f& scale, const sead::Matrix34f& mtx, AreaObj* obj)
@@ -35,11 +40,12 @@ static_assert(sizeof(CameraSubAreaScreenInfo) == 0x48);
 
 class SubCameraRenderer : public NerveExecutor {
 public:
-    SubCameraRenderer(agl::DrawContext*, GraphicsSystemInfo*, ExecuteDirector*, SceneCameraInfo*);
+    SubCameraRenderer(agl::DrawContext* draw_context, GraphicsSystemInfo* graphics_system_info,
+                      ExecuteDirector* execute_director, SceneCameraInfo* scene_camera_info);
     ~SubCameraRenderer() override;
 
     void endInit();
-    void draw(agl::DrawContext*, const agl::TextureData*, const agl::TextureData*,
+    void draw(agl::DrawContext* draw_context, const agl::TextureData*, const agl::TextureData*,
               const agl::TextureData*, const agl::TextureData*, const agl::RenderTargetDepth*,
               bool);
     void tryCapture();
@@ -58,12 +64,32 @@ public:
     }
 
 private:
-    char _10[0x220];
+    agl::DrawContext* mDrawContext;
+    OrthoRenderer* mOrthoRenderer = nullptr;
+    ExecuteDirector* mExecuteDirector;
+    UniformBlock* _0x28 = nullptr;
+    UniformBlock* _0x30 = nullptr;
+    agl::TextureData* _0x38 = nullptr;
+    agl::TextureData* _0x40 = nullptr;
+    agl::TextureData* _0x48 = nullptr;
+    agl::TextureData* _0x50 = nullptr;
+    agl::TextureData* _0x58 = nullptr;
+    agl::TextureData* _0x60 = nullptr;
+    agl::TextureData* _0x68 = nullptr;
+    agl::GPUMemAddr<u8> _0x70;
+    agl::GPUMemAddr<u8> _0x88;
+    agl::GPUMemAddr<u8> _0xa0;
+    agl::GPUMemAddr<u8> _0xb8;
+    agl::GPUMemAddr<u8> _0xd0;
+    agl::GPUMemAddr<u8> _0xe8;
+    agl::GPUMemAddr<u8> _0x100;
+    std::pair<s32, s32> _0x118 = {1024, 1024};
+    sead::LookAtCamera _0x120;
+    sead::OrthoProjection _0x180;
     SceneCameraInfo* mSceneCameraInfo;
-    s32 mNumCameraSub;
-    s32 _23c;
+    s32 mNumCameraSub = 0;
     GraphicsSystemInfo* mGraphicsSystemInfo;
-    agl::pfx::ColorCorrection* mColorCorrection;
+    agl::pfx::ColorCorrection* mColorCorrection = nullptr;
     sead::PtrArray<CameraSubAreaScreenInfo> mCameraSubAreaScreenInfos;
 };
 

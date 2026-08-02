@@ -10,10 +10,14 @@ class LiveActor;
 class Scene;
 }  // namespace al
 class GameDataHolder;
-class GamePadPlayStyleInfo;
+
+struct GamePadPlayStyleInfo {
+    s32 _0x0 = 0;
+    s32 _0x4 = 5;
+    s32 _0x8 = 5;
+};
 
 namespace rs {
-
 bool isSeparatePlay(const al::IUseSceneObjHolder*);
 void changeSeparatePlayMode(al::Scene*, bool);
 void setSeparatePlayMode(al::Scene*, bool);

@@ -34,7 +34,6 @@ public:
     CounterLife* getCurrentLayout() const;
     void exeWait();
     void waitAllLayout();
-    void updateTransAllLayout();
     bool tryChangeCount();
     void exeEnd();
     void exeDead();
@@ -44,10 +43,11 @@ public:
     void startCountAnim(s32 target);
     void exeCountEnd();
     void exeDemoLifeMaxUpStartFadeIn();
-    void updateTrans(al::LayoutActor* layout);
     void exeDemoLifeMaxUpAddLife();
     void exeDemoLifeMaxUpWaitForMove();
     void exeDemoLifeMaxUpMove();
+    void updateTrans(al::LayoutActor* layout);
+    void updateTransAllLayout();
     void calcLayoutTransByPlayer(sead::Vector3f* out);
     void exeDemoLifeMaxUpUnite();
     void startActionAllLayout(const char* action_name, const char* pane_name);

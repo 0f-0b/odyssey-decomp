@@ -72,9 +72,11 @@ public:
     bool isDisposable() const override;
     al::Scene* getCurrentScene() const override;
 
+    GameDataHolder* getGameDataHolder() const { return mGameDataHolder; }
+
 private:
     al::Scene* mCurrentScene;
-    GameDataHolderAccessor mGameDataHolderAccessor;
+    GameDataHolder* mGameDataHolder;
     al::GamePadSystem* mGamePadSystem;
     HakoniwaStateDemoOpening* mStateDemoOpening;
     HakoniwaStateDemoEnding* mStateDemoEnding;

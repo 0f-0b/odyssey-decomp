@@ -211,7 +211,8 @@ void Nokonoko::endCapture() {
     al::validateClipping(this);
 }
 
-void updateNokonokoVelocity(al::LiveActor* self, al::WaterSurfaceFinder* waterSurfaceFinder) {
+static void updateNokonokoVelocity(al::LiveActor* self,
+                                   al::WaterSurfaceFinder* waterSurfaceFinder) {
     if (!waterSurfaceFinder || !waterSurfaceFinder->isFoundSurface()) {
         if (al::isInWater(self)) {
             al::addVelocityToGravity(self, 0.1f);

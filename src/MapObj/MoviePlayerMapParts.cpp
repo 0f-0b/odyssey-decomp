@@ -7,7 +7,7 @@
 #include "Library/Scene/SceneObjUtil.h"
 #include "Library/Shader/ForwardRendering/ShaderSamplerSetter.h"
 #include "Library/Stage/StageSwitchUtil.h"
-#include "Library/Texture/TextureUtil.h"
+#include "Library/Texture/TextureReplacer.h"
 
 #include "Util/MoviePlayer.h"
 

@@ -23,6 +23,8 @@ public:
     void makeLockOnMtx(sead::Matrix34f* outMtx) const;
     void calcLockOnFollowTargetScale(sead::Vector3f* targetScale) const;
 
+    const IUsePlayerCollision* getPlayerCollision() const { return mPlayerCollision; }
+
     void setPoseMatrix(const sead::Matrix34f* mtx) { mPoseMatrix = mtx; }
 
     const char* getHackName() const { return mHackName; }

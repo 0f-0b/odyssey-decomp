@@ -77,4 +77,7 @@ struct ActorInitInfo {
     StageSwitchDirector* stageSwitchDirector = nullptr;
     const ViewIdHolder* viewIdHolder = nullptr;
 };
+
+static_assert(sizeof(ActorInitInfo) == 0x108);
+
 }  // namespace al

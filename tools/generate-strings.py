@@ -5,21 +5,18 @@ import re
 
 from common import setup_common as setup
 
-MIN_TEXT_SIZE = 0x2
 MAX_TEXT_SIZE = 0x600
 CHUNK_SIZE = 0x200 # Read file chunk size
 
 NSO_OFFSET = 0x70FFFFFF00
-U8_START_OFFSET = 0x710181c3d8 # UTF8 String table start main 1.0.0
-U8_END_OFFSET = 0x710187fb74 # UTF8 String table end
+U8_START_OFFSET = 0x710181c3e0 # UTF8 String table start main 1.0.0
+U8_END_OFFSET = 0x710187fb5e # UTF8 String table end
 U16_START_OFFSET = 0x71018acfbc # UTF16 string table start main 1.0.0
 U16_END_OFFSET = 0x71018ad1b3 # UTF16 string table end
 
 def parse_string(buffer, offset, csv_file, encoding):
     nso_addr = NSO_OFFSET + offset
-    
-    if len (buffer) < MIN_TEXT_SIZE:
-        return
+
     if len(buffer) > MAX_TEXT_SIZE:
         print(hex(nso_addr), "Warning: String is bigger than buffer size")
         return

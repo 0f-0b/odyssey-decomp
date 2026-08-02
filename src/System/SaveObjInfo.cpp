@@ -29,7 +29,7 @@ SaveObjInfo::createSaveObjInfoNoWriteSaveDataInSameScenario(const al::ActorInitI
 SaveObjInfo::SaveObjInfo(const al::ActorInitInfo& initInfo, const al::PlacementId* placementId,
                          SaveType saveType)
     : mPlacementId(placementId), mSaveType(saveType) {
-    mGameDataHolder = reinterpret_cast<GameDataHolder*>(initInfo.actorSceneInfo.gameDataHolder);
+    mGameDataHolder = static_cast<GameDataHolder*>(initInfo.actorSceneInfo.gameDataHolder);
     mIsOn = checkIsOn();
 }
 

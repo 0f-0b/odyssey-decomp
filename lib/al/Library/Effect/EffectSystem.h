@@ -25,7 +25,6 @@ class EffectEnvParam;
 class EffectGroupDrawer;
 class EffectLayoutDrawer;
 class EffectShaderHolder;
-class EffectSystemInfo;
 class ExecuteDirector;
 class GraphicsSystemInfo;
 class IUseExecutor;
@@ -77,6 +76,8 @@ public:
 
     void set_69(bool val) { _69 = val; }
 
+    void set_378(CollisionCodeList* list) { _378 = list; }
+
     EffectSystemInfo* getEffectSystemInfo() { return &mEffectSystemInfo; }
 
     const EffectSystemInfo* getEffectSystemInfo() const { return &mEffectSystemInfo; }
@@ -94,7 +95,9 @@ private:
     bool _68;
     bool _69;
     bool _6a;
-    void* filler2[99];
+    void* filler2[97];
+    CollisionCodeList* _378;
+    void* filler_[1];
     s32 mEffectLayoutDrawerSize;
     EffectLayoutDrawer** mEffectLayoutDrawerList;
     EffectShaderHolder* mEffectShaderHolder;

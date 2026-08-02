@@ -10,29 +10,40 @@ namespace al {
 struct ActorInitInfo;
 }
 
+struct CapType {
+    const char* id;
+    const char* fileName;
+    const char* actorName;
+};
+
 class TalkNpcCap : public al::LiveActor {
 public:
-    static TalkNpcCap* tryCreate(const al::LiveActor*, const al::ActorInitInfo&);
-    static TalkNpcCap* createForAchievementNpc(const al::LiveActor*, const al::ActorInitInfo&);
-    static TalkNpcCap* createForHintNpc(const al::LiveActor*, const al::ActorInitInfo&);
-    static TalkNpcCap* createForShibaken(const al::LiveActor*, const al::ActorInitInfo&);
-    static TalkNpcCap* createForShoppingNpc(const al::LiveActor*, const al::ActorInitInfo&);
-    static TalkNpcCap* createForShoppingNpcChromakey(const al::LiveActor*,
-                                                     const al::ActorInitInfo&);
-    static TalkNpcCap* createForVolleyballNpc(const al::LiveActor*, const al::ActorInitInfo&);
+    TalkNpcCap(const CapType* cap_type) : al::LiveActor(cap_type->actorName), mCapType(cap_type) {}
 
-    void initAttach(const al::LiveActor*);
+    static TalkNpcCap* tryCreate(const al::LiveActor* actor, const al::ActorInitInfo& info);
+    static TalkNpcCap* createForAchievementNpc(const al::LiveActor* actor,
+                                               const al::ActorInitInfo& info);
+    static TalkNpcCap* createForHintNpc(const al::LiveActor* actor, const al::ActorInitInfo& info);
+    static TalkNpcCap* createForShibaken(const al::LiveActor* actor, const al::ActorInitInfo& info);
+    static TalkNpcCap* createForShoppingNpc(const al::LiveActor* actor,
+                                            const al::ActorInitInfo& info);
+    static TalkNpcCap* createForShoppingNpcChromakey(const al::LiveActor* actor,
+                                                     const al::ActorInitInfo& info);
+    static TalkNpcCap* createForVolleyballNpc(const al::LiveActor* actor,
+                                              const al::ActorInitInfo& info);
+
+    void initAttach(const al::LiveActor* actor);
     void makeActorAlive() override;
     void control() override;
     void init(const al::ActorInitInfo& info) override;
 
 private:
-    const char* _108;
-    sead::Matrix34f* _110;
-    sead::Vector3f _118;
-    sead::Vector3f _124;
-    f32 _130;
-    bool _134;
+    const CapType* mCapType;
+    const sead::Matrix34f* mMtx = nullptr;
+    sead::Vector3f mLocalRotate = {0, 0, 0};
+    sead::Vector3f mLocalTrans = {0, 0, 0};
+    f32 mLocalScale = 1;
+    bool mIsChromakey = false;
 };
 
 static_assert(sizeof(TalkNpcCap) == 0x138);

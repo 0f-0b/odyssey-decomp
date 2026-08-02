@@ -28,43 +28,26 @@ bool FluidSurfaceHolder::calcIsInFluid(const sead::Vector3f& trans, const char* 
     return true;
 }
 
-// NON_MATCHING: https://decomp.me/scratch/YGKVO
 IUseFluidSurface* FluidSurfaceHolder::tryFindFluidSurface(const sead::Vector3f& trans,
                                                           const char* type) {
+    bool anyType = isEqualString(type, "Anything");
     IUseFluidSurface* out = nullptr;
 
-    if (isEqualString(type, "Anything")) {
-        f32 minDist = 100000.0f;
-        for (s32 i = 0; i < mSurfaces.size(); i++) {
-            if (!mSurfaces[i]->calcIsInArea(trans))
-                continue;
+    f32 minDist = 100000.0f;
+    for (s32 i = 0; i < mSurfaces.size(); i++) {
+        if (!anyType && !isEqualSubString(mSurfaces[i]->getTypeName(), type))
+            continue;
 
-            sead::Vector3f posFlat = {0.0f, 0.0f, 0.0f};
-            mSurfaces[i]->calcPosFlat(&posFlat, trans);
+        if (!mSurfaces[i]->calcIsInArea(trans))
+            continue;
 
-            f32 dist = (posFlat - trans).length();
-            if (dist < minDist) {
-                minDist = dist;
-                out = mSurfaces[i];
-            }
-        }
-    } else {
-        f32 minDist = 100000.0f;
-        for (s32 i = 0; i < mSurfaces.size(); i++) {
-            if (!isEqualSubString(mSurfaces[i]->getTypeName(), type))
-                continue;
+        sead::Vector3f posFlat = {0.0f, 0.0f, 0.0f};
+        mSurfaces[i]->calcPosFlat(&posFlat, trans);
 
-            if (!mSurfaces[i]->calcIsInArea(trans))
-                continue;
-
-            sead::Vector3f posFlat = {0.0f, 0.0f, 0.0f};
-            mSurfaces[i]->calcPosFlat(&posFlat, trans);
-
-            f32 dist = (posFlat - trans).length();
-            if (dist < minDist) {
-                minDist = dist;
-                out = mSurfaces[i];
-            }
+        f32 dist = (posFlat - trans).length();
+        if (dist < minDist) {
+            minDist = dist;
+            out = mSurfaces[i];
         }
     }
 

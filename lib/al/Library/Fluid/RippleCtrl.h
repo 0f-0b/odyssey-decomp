@@ -9,11 +9,9 @@ namespace al {
 class LiveActor;
 struct ActorInitInfo;
 
-// TODO: Finish this
 class RippleCtrl : public IUseFluidSurface, public HioNode {
 public:
     RippleCtrl(LiveActor* parent);
-
     static RippleCtrl* tryCreate(LiveActor* parent);
 
     void init(const ActorInitInfo& info);
@@ -22,17 +20,19 @@ public:
     void tryCreateFlowMap();
     void initAfterPlacement();
     void update();
-    bool calcIsInArea(const sead::Vector3f&) const override;
+
+    bool calcIsInArea(const sead::Vector3f& pos) const override;
     bool isCollide(s32, s32) const;
-    void calcPos(sead::Vector3f*, const sead::Vector3f&) const override;
+    void calcPos(sead::Vector3f* out, const sead::Vector3f& pos) const override;
     const sead::Vector3f& getCollidePos(s32, s32) const;
-    void calcNormal(sead::Vector3f*, const sead::Vector3f&) const override;
-    bool tryAddRipple(const sead::Vector3f&, f32, f32) override;
-    bool tryAddRippleWithRange(const sead::Vector3f&, f32, f32, f32, f32) override;
-    bool tryAddQuadRipple(const sead::Vector3f&, const sead::Vector3f&, const sead::Vector3f&,
-                          const sead::Vector3f&, f32) override;
-    void setFieldScale(f32) override;
+    void calcNormal(sead::Vector3f* out, const sead::Vector3f& pos) const override;
+    bool tryAddRipple(const sead::Vector3f& pos, f32, f32) override;
+    bool tryAddRippleWithRange(const sead::Vector3f& pos, f32, f32, f32, f32) override;
+    bool tryAddQuadRipple(const sead::Vector3f& p1, const sead::Vector3f& p2,
+                          const sead::Vector3f& p3, const sead::Vector3f& p4, f32) override;
+    void setFieldScale(f32 scale) override;
     const char* getTypeName() const override;
+
     void forceResetCount();
 
     void set_110(bool update) { _110 = update; }

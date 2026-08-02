@@ -6,15 +6,15 @@ CollidedShapeResult::CollidedShapeResult(const CollisionShapeInfoBase* shapeInfo
     : mShapeInfo(shapeInfo) {}
 
 void CollidedShapeResult::setArrowHitInfo(const al::ArrowHitInfo& arrowHitInfo) {
-    *mArrowHitInfo.hitInfo = *arrowHitInfo.hitInfo;
+    mArrowHitInfo = arrowHitInfo;
 }
 
 void CollidedShapeResult::setSphereHitInfo(const al::SphereHitInfo& sphereHitInfo) {
-    *mSphereHitInfo.hitInfo = *sphereHitInfo.hitInfo;
+    mSphereHitInfo = sphereHitInfo;
 }
 
 void CollidedShapeResult::setDiskHitInfo(const al::DiskHitInfo& diskHitInfo) {
-    *mDiskHitInfo.hitInfo = *diskHitInfo.hitInfo;
+    mDiskHitInfo = diskHitInfo;
 }
 
 bool CollidedShapeResult::isArrow() const {
@@ -51,11 +51,4 @@ const CollisionShapeInfoSphere* CollidedShapeResult::getShapeInfoSphere() const 
 
 const CollisionShapeInfoDisk* CollidedShapeResult::getShapeInfoDisk() const {
     return CollisionShapeFunction::getShapeInfoDisk(mShapeInfo);
-}
-
-void CollidedShapeResult::operator=(const CollidedShapeResult& other) {
-    mShapeInfo = other.mShapeInfo;
-    setArrowHitInfo(other.mArrowHitInfo);
-    setSphereHitInfo(other.mSphereHitInfo);
-    setDiskHitInfo(other.mDiskHitInfo);
 }

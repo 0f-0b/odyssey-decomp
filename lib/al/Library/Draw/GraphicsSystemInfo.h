@@ -36,23 +36,17 @@ class DirectionalLightKeeper;
 class EffectSystem;
 class ExecuteDirector;
 class FlareFilterDirector;
-class FootPrintTextureKeeper;
 class FogDirector;
+class FootPrintTextureKeeper;
 class FullScreenTriangle;
 class GBufferArray;
 class GodRayDirector;
 class GpuMemAllocator;
 class GraphicsAreaDirector;
-class GraphicsCalcGpuInfo;
-class GraphicsComputeInfo;
-class GraphicsCopyInfo;
-class GraphicsQualityController;
 class GraphicsParamFilePath;
 class GraphicsParamRequesterImpl;
-class GraphicsParamRequesterImpl;
 class GraphicsPresetDirector;
-class GraphicsRenderInfo;
-class GraphicsUpdateInfo;
+class GraphicsQualityController;
 class HdrCompose;
 class LightStreakDirector;
 class MaterialCategoryKeeper;
@@ -65,8 +59,8 @@ class OccludedEffectDirector;
 class OcclusionCullingJudge;
 class OceanWave;
 class PartsGraphics;
-class PlayerHolder;
 class PeripheryRendering;
+class PlayerHolder;
 class PointSpriteCursorHolder;
 class PostProcessingFilter;
 class PrePassLightKeeper;
@@ -77,14 +71,14 @@ class RadialBlurDirector;
 class RandomTextureKeeper;
 class ReducedBufferRenderer;
 class RenderVariables;
-class RippleTextureKeeper;
 class Resource;
+class RippleTextureKeeper;
 class SceneCameraInfo;
 class ShaderCubeMapKeeper;
 class ShaderEnvTextureKeeper;
-class ShadowDirector;
 class ShaderHolder;
 class ShaderMirrorDirector;
+class ShadowDirector;
 class SimpleModelEnv;
 class SkyDirector;
 class SSIIKeeper;
@@ -97,6 +91,11 @@ class VastGridMeshDirector;
 class ViewRenderer;
 class VignettingDrawer;
 class WorldAODirector;
+struct GraphicsCalcGpuInfo;
+struct GraphicsComputeInfo;
+struct GraphicsCopyInfo;
+struct GraphicsRenderInfo;
+struct GraphicsUpdateInfo;
 
 struct GraphicsInitArg {
     GraphicsInitArg(agl::DrawContext*, sead::FrameBuffer*);
@@ -168,6 +167,12 @@ public:
     void drawPartsGraphicsCubemap(const GraphicsRenderInfo&) const;
 
     void set_2f4(s32 set) { _2f4 = set; }
+
+    const ShaderHolder* getShaderHolder() const { return mShaderHolder; }
+
+    NoiseTextureKeeper* getNoiseTextureKeeper() const { return mNoiseTextureKeeper; }
+
+    RippleTextureKeeper* getRippleTextureKeeper() const { return mRippleTextureKeeper; }
 
     ViewRenderer* getViewRenderer() const { return mViewRenderer; }
 

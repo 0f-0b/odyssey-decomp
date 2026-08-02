@@ -22,6 +22,7 @@ struct HackObjInfo;
 class PlayerCollider;
 class CapTargetInfo;
 class PlayerHackStartTexKeeper;
+class IUsePlayerCollision;
 class IUsePlayerHack;
 
 struct HackEndParam {
@@ -37,13 +38,13 @@ struct HackEndParam {
 
 class PlayerHackKeeper {
 public:
-    PlayerHackKeeper(al::LiveActor* player, HackCap* cap, PlayerRecoverySafetyPoint* safetyPoint,
+    PlayerHackKeeper(al::LiveActor* player, HackCap* cap, PlayerRecoverySafetyPoint* safety_point,
                      const PlayerInput* input, const sead::Matrix34f* mtx,
                      const PlayerDamageKeeper* damageKeeper,
                      const IPlayerModelChanger* modelChanger,
                      const IUsePlayerHeightCheck* heightCheck);
 
-    void createHackModel(const al::ActorInitInfo&);
+    void createHackModel(const al::ActorInitInfo& info);
     void startHack(al::HitSensor*, al::HitSensor*, al::LiveActor*);
     void setupHack(al::HitSensor*, al::HitSensor*, al::LiveActor*);
     void endHack(const HackEndParam*);
@@ -62,6 +63,7 @@ public:
     void cancelForceRecovery();
     void tryEscapeHack();
     void sendTransferHack();
+    void sendMarioCheckpointFlagWarp();
     void sendMarioDemo();
     void forceKillHack();
     void sendMarioDead();
@@ -75,7 +77,7 @@ public:
     void sendSyncDamageVisibility();
     void pushWorldEndBorder(const sead::Vector3f&);
     const char* getCurrentHackName() const;
-    PlayerCollider* getPlayerCollision() const;
+    const IUsePlayerCollision* getPlayerCollision() const;
     f32 getHackGuideHeight() const;
     bool isHackGuideEnable() const;
     f32 getHackStayGravityMargine() const;
@@ -97,13 +99,13 @@ public:
 
     PlayerRecoverySafetyPoint* getRecoverySafePoint() const { return mRecoverySafePoint; }
 
-    PlayerInput* getInput() const { return mInput; }
+    const PlayerInput* getInput() const { return mInput; }
 
-    PlayerDamageKeeper* getDamageKeeper() const { return mDamageKeeper; }
+    const PlayerDamageKeeper* getDamageKeeper() const { return mDamageKeeper; }
 
-    IPlayerModelChanger* getModelChanger() const { return mModelChanger; }
+    const IPlayerModelChanger* getModelChanger() const { return mModelChanger; }
 
-    IUsePlayerHeightCheck* getHeightCheck() const { return mHeightCheck; }
+    const IUsePlayerHeightCheck* getHeightCheck() const { return mHeightCheck; }
 
     void setPuppetable(bool isPuppetable) { mIsPuppetable = isPuppetable; }
 
@@ -127,35 +129,35 @@ private:
     al::LiveActor* mParent;
     HackCap* mHackCap;
     PlayerRecoverySafetyPoint* mRecoverySafePoint;
-    void* field_18;
-    void* field_20;
-    PlayerInput* mInput;
-    sead::Matrix34f* field_30;
-    PlayerDamageKeeper* mDamageKeeper;
-    IPlayerModelChanger* mModelChanger;
-    IUsePlayerHeightCheck* mHeightCheck;
-    al::HitSensor* mParentBodySensor;
-    bool mIsPuppetable;
-    bool mIsCancellingHack;
-    bool mIsHackDemoStarted;
-    bool mIsPuppetable2;
-    bool mIsStartedHacking;
-    bool mIsHack;
-    bool mIsTookDamage;
+    s64 field_18 = 0;
+    s64 field_20 = 0;
+    const PlayerInput* mInput;
+    const sead::Matrix34f* _30;
+    const PlayerDamageKeeper* mDamageKeeper;
+    const IPlayerModelChanger* mModelChanger;
+    const IUsePlayerHeightCheck* mHeightCheck;
+    al::HitSensor* mParentBodySensor = nullptr;
+    bool mIsPuppetable = false;
+    bool mIsCancellingHack = false;
+    bool mIsHackDemoStarted = false;
+    bool mIsPuppetable2 = false;
+    bool mIsStartedHacking = false;
+    bool mIsHack = false;
+    bool mIsTookDamage = false;
     al::CollisionPartsFilterBase* mCollisionFilter;
-    al::LiveActor* mHackActor;
-    al::HitSensor* mHackHitSensor;
-    HackObjInfo* mHackObjectInfo;
-    al::HitSensor* mStageStartActorSensor;
-    al::LiveActor* mStageStartActor;
-    CapTargetInfo* mStageStartCapTargetInfo;
-    PlayerHackStartTexKeeper* mHackStartTexKeeper;
-    al::LiveActor* mHackModel;
+    al::LiveActor* mHackActor = nullptr;
+    al::HitSensor* mHackHitSensor = nullptr;
+    HackObjInfo* mHackObjectInfo = nullptr;
+    al::HitSensor* mStageStartActorSensor = nullptr;
+    al::LiveActor* mStageStartActor = nullptr;
+    CapTargetInfo* mStageStartCapTargetInfo = nullptr;
+    PlayerHackStartTexKeeper* mHackStartTexKeeper = nullptr;
+    al::LiveActor* mHackModel = nullptr;
     sead::PtrArray<sead::Matrix34f> mHackModelSlices;
-    sead::Matrix34f* field_b8;
-    s32 field_c0;
-    s32 field_c4;
-    s32 field_c8;
+    sead::Matrix34f* field_b8 = nullptr;
+    s32 field_c0 = 0;
+    s32 field_c4 = 0;
+    s32 field_c8 = 0;
 };
 
 static_assert(sizeof(PlayerHackKeeper) == 0xd0);

@@ -2,11 +2,51 @@
 
 #include <array>
 
+#include "Library/Base/StringUtil.h"
+
 CollectBgm::CollectBgm() : CollectBgm(nullptr, nullptr, nullptr, nullptr, nullptr) {}
 
 CollectBgm::CollectBgm(const char* name, const char* situation_name, const char* tag1,
                        const char* tag2, const char* category)
     : name(name), situationName(situation_name), tag1(tag1), tag2(tag2), category(category) {}
+
+static s32 blackBox(s32 value) {
+    __asm__("" : "+r"(value));
+    return value;
+}
+
+template <typename F>
+static s32 search(s32 n, F f) {
+    for (s32 i = 0; i < n; i++) {
+        s32 status = f(i);
+        if ((blackBox(status | 4) & 7) != 4)
+            return status;
+    }
+    return 2;
+}
+
+static bool isEqualStringOrNull(const char* a, const char* b) {
+    return a ? b && al::isEqualString(a, b) : !b;
+}
+
+bool CollectBgm::isEqualRequest(const char* name, const char* situation_name, const char* tag) {
+    s32 status = search(cCollectBgmListSize, [&](s32 i) {
+        if (!al::isEqualString(cCollectBgmList[i].name, name))
+            return 4;
+        const char* tag1 = cCollectBgmList[i].tag1;
+        if (!tag1)
+            return 4;
+        if (!isEqualStringOrNull(cCollectBgmList[i].situationName, situation_name))
+            return 4;
+        if (al::isEqualString(tag1, tag))
+            return 1;
+        const char* tag2 = cCollectBgmList[i].tag2;
+        if (i == 55 || i == 44)
+            return al::isEqualString(tag2, tag) ? 1 : 0;
+        return 4;
+    });
+    return status != 2;
+}
 
 const char* CollectBgm::cSituationNameList[] = {
     "BossForestBattle3rd",

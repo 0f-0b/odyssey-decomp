@@ -65,7 +65,7 @@ void FirstSequenceScene::init(const al::SceneInitInfo& info) {
 
     initNerve(&Wipe, 1);
 
-    mWaveVibrationHolder = info.gameSystemInfo->waveVibrationHolder;
+    mWaveVibrationHolder = info.gameSystemInfo->getWaveVibrationHolder();
 
     mStateSelectMode = new SceneStateSelectMode("モード選択", this, layoutInitInfo, nullptr,
                                                 nullptr, mWaveVibrationHolder);

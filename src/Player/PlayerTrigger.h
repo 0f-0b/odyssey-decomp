@@ -10,6 +10,8 @@ public:
         ECollisionTrigger_val1 = 1,
         // used in PlayerStateDamageLife::exeDead
         ECollisionTrigger_val6 = 6,
+        // used in PlayerStateWait::appear
+        ECollisionTrigger_val8 = 8,
         // used in PlayerJudgeWallHitDown::judge
         ECollisionTrigger_val9 = 9,
         // used in PlayerTrigger::isOnYoshiHackEnd
@@ -30,6 +32,10 @@ public:
         EActionTrigger_val11 = 11,
         // used in PlayerStateSquat::appear
         EActionTrigger_val12 = 12,
+        // used in PlayerStateWait::appear
+        EActionTrigger_val24 = 24,
+        // used in PlayerStateWait::appear
+        EActionTrigger_val25 = 25,
         // used in PlayerJudgeWallCatch::update, PlayerJudgeWallKeep::update
         EActionTrigger_val30 = 30,
         // used in PlayerCounterQuickTurnJump::isEnableTurnJump
@@ -43,7 +49,10 @@ public:
         EPreMovementTrigger_val2 = 2,
     };
 
-    enum EDemoEndTrigger : u32 {};
+    enum EDemoEndTrigger : u32 {
+        // used in PlayerStateWait
+        EDemoEndTrigger_val0 = 0,
+    };
 
     enum EMaterialChangeTrigger : u32 {};
 

@@ -14,9 +14,9 @@ class NetworkUploadFlag : public ByamlSave {
 public:
     NetworkUploadFlag();
     void init();
-    bool isNeedUpload(const RankingCategory&) const;
-    void upload(const RankingCategory&);
-    void updateScore(const RankingCategory&);
+    bool isNeedUpload(const RankingCategory& category) const;
+    void upload(const RankingCategory& category);
+    void updateScore(const RankingCategory& category);
     void write(al::ByamlWriter* writer) override;
     void read(const al::ByamlIter& save) override;
 

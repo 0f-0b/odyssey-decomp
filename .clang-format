@@ -31,10 +31,13 @@ Cpp11BracedListStyle: true
 DerivePointerAlignment: false
 DisableFormat: false
 ForEachMacros: [ ]
+IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '^<[Ww]indows\.h>$'
-    Priority: 1
   - Regex: '^<'
+    Priority: 1
+  - Regex: '^"Library/'
+    Priority: 2
+  - Regex: '^"Project/'
     Priority: 2
   - Regex: '^"'
     Priority: 3

@@ -206,4 +206,54 @@ AudioInfoListWithParts<T>* copyAudioInfoList(const AudioInfoListWithParts<T>* au
 
     return newAudioInfoList;
 }
+
+struct AudioResourceLoadInfo {
+    static AudioResourceLoadInfo* createInfo(const ByamlIter& iter);
+    static s32 compareInfo(const AudioResourceLoadInfo* a, const AudioResourceLoadInfo* b);
+    AudioResourceLoadInfo();
+
+    AudioResourceLoadInfo(const char* name_, bool _w2) : AudioResourceLoadInfo() {
+        name = name_;
+        _0x8 = _w2;
+    }
+
+    const char* name;
+    bool _0x8;
+};
+
+static_assert(sizeof(AudioResourceLoadInfo) == 0x10);
+
+using AudioResourceLoadInfoList = AudioInfoListWithParts<AudioResourceLoadInfo>;
+
+struct AudioResourceLoadGroupInfo {
+    static AudioResourceLoadGroupInfo* createInfo(const ByamlIter& iter);
+    static s32 compareInfo(const AudioResourceLoadGroupInfo* a,
+                           const AudioResourceLoadGroupInfo* b);
+    AudioResourceLoadGroupInfo();
+
+    AudioResourceLoadGroupInfo(const char* name_, s32 _w2, s32 _w3) : AudioResourceLoadGroupInfo() {
+        name = name_;
+        if (_w2 > 0) {
+            _0x8 = new AudioResourceLoadInfoList();
+            _0x8->init(_w2, 0);
+        } else {
+            _0x8 = nullptr;
+        }
+        if (_w3 > 0) {
+            _0x10 = new AudioResourceLoadInfoList();
+            _0x10->init(_w3, 0);
+        } else {
+            _0x10 = nullptr;
+        }
+    }
+
+    const char* name;
+    AudioResourceLoadInfoList* _0x8;
+    AudioResourceLoadInfoList* _0x10;
+};
+
+static_assert(sizeof(AudioResourceLoadGroupInfo) == 0x18);
+
+using AudioResourceLoadGroupInfoList = AudioInfoListWithParts<AudioResourceLoadGroupInfo>;
+
 }  // namespace al

@@ -10,6 +10,7 @@
 #include "Library/Audio/AudioDirectorInitInfo.h"
 #include "Library/Audio/System/AudioKeeper.h"
 #include "Library/Audio/System/AudioKeeperFunction.h"
+#include "Library/Audio/System/AudioSystem.h"
 #include "Library/Base/StringUtil.h"
 #include "Library/Camera/CameraDirector.h"
 #include "Library/Camera/CameraFlagCtrl.h"
@@ -198,14 +199,16 @@ void initLayoutInitInfo(LayoutInitInfo* layoutInfo, const Scene* scene,
         layoutInfo->init(
             actorKit->getExecuteDirector(), actorKit->getEffectSystem()->getEffectSystemInfo(),
             scene->getSceneObjHolder(), scene->getAudioDirector(), actorKit->getCameraDirector(),
-            sceneInfo.gameSystemInfo->layoutSystem, sceneInfo.gameSystemInfo->messageSystem,
-            sceneInfo.gameSystemInfo->gamePadSystem, actorKit->getPadRumbleDirector());
+            sceneInfo.gameSystemInfo->getLayoutSystem(),
+            sceneInfo.gameSystemInfo->getMessageSystem(),
+            sceneInfo.gameSystemInfo->getGamePadSystem(), actorKit->getPadRumbleDirector());
     } else {
-        layoutInfo->init(
-            layoutKit->getExecuteDirector(), layoutKit->getEffectSystem()->getEffectSystemInfo(),
-            scene->getSceneObjHolder(), scene->getAudioDirector(), nullptr,
-            sceneInfo.gameSystemInfo->layoutSystem, sceneInfo.gameSystemInfo->messageSystem,
-            sceneInfo.gameSystemInfo->gamePadSystem, nullptr);
+        layoutInfo->init(layoutKit->getExecuteDirector(),
+                         layoutKit->getEffectSystem()->getEffectSystemInfo(),
+                         scene->getSceneObjHolder(), scene->getAudioDirector(), nullptr,
+                         sceneInfo.gameSystemInfo->getLayoutSystem(),
+                         sceneInfo.gameSystemInfo->getMessageSystem(),
+                         sceneInfo.gameSystemInfo->getGamePadSystem(), nullptr);
     }
 
     layoutInfo->setDrawContext(scene->getDrawSystemInfo()->drawContext);
@@ -492,7 +495,7 @@ void registerSwitchKeepOnAreaGroup(Scene* scene, SwitchKeepOnAreaGroup* switchKe
 
 void initGraphicsSystemInfo(Scene* scene, const char* name, s32 index) {
     if (index > 1) {
-        StringTmp<32> scenario{"Scenario%d"};
+        StringTmp<32> scenario{"Scenario%d", index};
         GraphicsSystemInfo* systemInfo = scene->getLiveActorKit()->getGraphicsSystemInfo();
 
         Resource* resource = nullptr;
@@ -682,8 +685,8 @@ void endCameraPause(PauseCameraCtrl* pauseCameraCtrl) {
 AudioDirector* initAudioDirectorImpl(Scene* scene, const SceneInitInfo& sceneInfo,
                                      AudioDirectorInitInfo& audioDirectorInfo) {
     audioDirectorInfo.audioSystemInfo =
-        sceneInfo.gameSystemInfo->audioSystem ?
-            sceneInfo.gameSystemInfo->audioSystem->getAudioSystemInfo() :
+        sceneInfo.gameSystemInfo->getAudioSystem() ?
+            sceneInfo.gameSystemInfo->getAudioSystem()->getAudioSystemInfo() :
             nullptr;
 
     if (!audioDirectorInfo.curStage)
@@ -739,8 +742,8 @@ void initAudioDirector3D(Scene* scene, const SceneInitInfo& sceneInfo,
 
 void initSceneAudioKeeper(Scene* scene, const SceneInitInfo& sceneInfo, const char* name) {
     AudioSystemInfo* audioSystemInfo = nullptr;
-    if (sceneInfo.gameSystemInfo->audioSystem)
-        audioSystemInfo = sceneInfo.gameSystemInfo->audioSystem->getAudioSystemInfo();
+    if (sceneInfo.gameSystemInfo->getAudioSystem())
+        audioSystemInfo = sceneInfo.gameSystemInfo->getAudioSystem()->getAudioSystemInfo();
 
     const char* seUserName = alSeDbFunction::tryFindSceneSeUserName(
         audioSystemInfo, sceneInfo.initStageName, sceneInfo.scenarioNo);
@@ -959,7 +962,7 @@ void stopAllSe(const Scene* scene, u32 index) {
 }
 
 void initPadRumble(const Scene* scene, const SceneInitInfo& sceneInfo) {
-    WaveVibrationHolder* waveVibrationHolder = sceneInfo.gameSystemInfo->waveVibrationHolder;
+    WaveVibrationHolder* waveVibrationHolder = sceneInfo.gameSystemInfo->getWaveVibrationHolder();
     scene->getLiveActorKit()->getPadRumbleDirector()->setWaveVibrationHolder(waveVibrationHolder);
 
     alAudioSystemFunction::setPadRumbleDirectorForSe(

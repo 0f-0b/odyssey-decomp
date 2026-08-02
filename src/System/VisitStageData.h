@@ -13,8 +13,8 @@ class VisitStageData : public ByamlSave {
 public:
     VisitStageData();
     void init();
-    bool checkAlreadyVisit(const char*) const;
-    void visit(const char*);
+    bool checkAlreadyVisit(const char* stage_name) const;
+    void visit(const char* stage_name);
     void write(al::ByamlWriter* writer) override;
     void read(const al::ByamlIter& save) override;
 

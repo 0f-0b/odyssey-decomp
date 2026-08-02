@@ -311,7 +311,7 @@ void Gamane::updateRefract() {
         refractPercentage = 1.0f - refractPercentage;
     al::setModelMaterialParameterF32(this, mMaterialIndex, "const_single0", refractPercentage);
     al::setModelMaterialParameterF32(this, mMaterialIndex, "const_single2",
-                                     refractPercentage * 0.5);
+                                     refractPercentage * 0.5f);
     mRefractTransitionTime--;
 
     if (mPlayerHack)

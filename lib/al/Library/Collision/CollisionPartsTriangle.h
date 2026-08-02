@@ -100,6 +100,11 @@ struct ArrowHitInfo {
 
     const HitInfo& operator->() const { return *hitInfo; }
 
+    ArrowHitInfo& operator=(const ArrowHitInfo& other) {
+        *hitInfo = *other.hitInfo;
+        return *this;
+    }
+
     sead::StorageFor<HitInfo> hitInfo{sead::ZeroInitializeTag{}};
 };
 
@@ -115,6 +120,11 @@ struct SphereHitInfo {
 
     const HitInfo& operator->() const { return *hitInfo; }
 
+    SphereHitInfo& operator=(const SphereHitInfo& other) {
+        *hitInfo = *other.hitInfo;
+        return *this;
+    }
+
     sead::StorageFor<HitInfo> hitInfo{sead::ZeroInitializeTag{}};
 };
 
@@ -129,6 +139,11 @@ struct DiskHitInfo {
     HitInfo& operator->() { return *hitInfo; }
 
     const HitInfo& operator->() const { return *hitInfo; }
+
+    DiskHitInfo& operator=(const DiskHitInfo& other) {
+        *hitInfo = *other.hitInfo;
+        return *this;
+    }
 
     sead::StorageFor<HitInfo> hitInfo{sead::ZeroInitializeTag{}};
 };

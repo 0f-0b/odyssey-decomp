@@ -35,3 +35,5 @@ public:
 private:
     SearchAmiiboData* mEntries;
 };
+
+static_assert(sizeof(SearchAmiiboDataTable) == 0x10);

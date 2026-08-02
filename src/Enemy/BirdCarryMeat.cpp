@@ -38,7 +38,7 @@ BirdCarryMeat::BirdCarryMeat(const char* name) : al::LiveActor(name) {}
 const sead::Vector3f cVec = {300.0f, 0.0f, 0.0f};
 
 void BirdCarryMeat::init(const al::ActorInitInfo& info) {
-    al::initActorWithArchiveName(this, info, "BirdCarryMeat", "CarryMeat");
+    al::initActorWithArchiveName(this, info, "BossMagma", "CarryMeat");
     al::initNerve(this, &NrvBirdCarryMeat.WaitOnRail, 0);
     al::calcLinkChildNum(info, "CarryMeat");
     mCarryMeat = new CarryMeat(al::getLinksActorDisplayName(info, "CarryMeat", 0));

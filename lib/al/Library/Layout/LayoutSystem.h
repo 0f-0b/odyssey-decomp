@@ -2,6 +2,10 @@
 
 #include <basis/seadTypes.h>
 
+namespace sead {
+class Heap;
+}
+
 namespace agl {
 class DrawContext;
 }
@@ -15,6 +19,27 @@ class EffectSystem;
 class ExecuteDirector;
 class FontHolder;
 class LayoutSystem;
+
+class LayoutSystem {
+public:
+    LayoutSystem();
+    void init();
+    void initGraphicsResource();
+    void initFont();
+    void initEui();
+    void tryFindFont(const char*) const;
+    void getFontNamePair(s32) const;
+    void prepareInitFontForChangeLanguage();
+    void initFontForChangeLanguage();
+    void reinitFont(sead::Heap*);
+    void beginDraw() const;
+    void endDraw() const;
+
+private:
+    void* _padding[0x6];
+};
+
+static_assert(sizeof(LayoutSystem) == 0x30);
 
 class LayoutKit {
 public:

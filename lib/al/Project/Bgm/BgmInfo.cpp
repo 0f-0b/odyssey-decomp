@@ -9,7 +9,7 @@ void BgmChangeableParams::calcPitch(f32 value) {
     exp2f(value / 12);
 }
 
-void BgmChangeableParams::operator=(const BgmChangeableParams& value) {
+BgmChangeableParams& BgmChangeableParams::operator=(const BgmChangeableParams& value) {
     mVolume = value.mVolume;
     mPitch = value.mPitch;
     mLpfFreq = value.mLpfFreq;
@@ -22,6 +22,7 @@ void BgmChangeableParams::operator=(const BgmChangeableParams& value) {
     mTrackVolume3 = value.mTrackVolume3;
     mTrackVolume4 = value.mTrackVolume4;
     mTrackVolume5 = value.mTrackVolume5;
+    return *this;
 }
 
 BgmRegionChangeParams::BgmRegionChangeParams() {}
@@ -31,12 +32,13 @@ BgmRegionChangeParams::BgmRegionChangeParams(const BgmRegionChangeParams& other)
     *this = other;
 }
 
-void BgmRegionChangeParams::operator=(const BgmRegionChangeParams& other) {
+BgmRegionChangeParams& BgmRegionChangeParams::operator=(const BgmRegionChangeParams& other) {
     _0 = other._0;
     _4 = other._4;
     _8 = other._8;
     _c = other._c;
     _d = other._d;
+    return *this;
 }
 
 bool BgmRegionChangeParams::operator==(const BgmRegionChangeParams& other) const {

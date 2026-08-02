@@ -98,7 +98,7 @@ static void initHackEndParam(HackEndParam* hackEndParam, PlayerHackKeeper* hackK
 
     if (hackKeeper->isCancellingHack()) {
         up = -al::getGravity(hack);
-        PlayerInput* playerInput = hackKeeper->getInput();
+        const PlayerInput* playerInput = hackKeeper->getInput();
         sead::Vector3f* front = &hackEndParam->dir;
 
         if (playerInput->isMove())
@@ -548,7 +548,7 @@ f32 calcGroundHeightHackerDepthShadowMapLength(al::LiveActor* actor,
                                                const IUsePlayerHack* playerHack,
                                                const sead::Vector3f& param3, f32 param4,
                                                f32 maxHeight) {
-    IUsePlayerHeightCheck* heightCheck = playerHack->getPlayerHackKeeper()->getHeightCheck();
+    const IUsePlayerHeightCheck* heightCheck = playerHack->getPlayerHackKeeper()->getHeightCheck();
     if (!heightCheck->isAboveGround())
         return maxHeight;
 
@@ -574,7 +574,7 @@ void cutGroundHeightHackerDepthShadowMapLength(al::LiveActor* actor,
 }
 
 bool checkExistHeightSpaceAboveGround(f32* out, const IUsePlayerHack* playerHack, f32 maxHeight) {
-    IUsePlayerHeightCheck* heightCheck = playerHack->getPlayerHackKeeper()->getHeightCheck();
+    const IUsePlayerHeightCheck* heightCheck = playerHack->getPlayerHackKeeper()->getHeightCheck();
     if (!heightCheck->isAboveGround())
         return true;
 

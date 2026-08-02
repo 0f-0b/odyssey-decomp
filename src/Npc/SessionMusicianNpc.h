@@ -41,12 +41,7 @@ class SessionMusicianNpc : public al::LiveActor,
                            public al::IEventFlowEventReceiver,
                            public al::IEventFlowQueryJudge {
 public:
-    SEAD_ENUM(EventType,
-    Wait,
-    Live,
-    Ceremony,
-    PowerPlant
-    )
+    SEAD_ENUM(EventType, Wait, Live, Ceremony, PowerPlant)
 
     SessionMusicianNpc(const char* name = nullptr) : al::LiveActor(name) {}
 
@@ -101,27 +96,27 @@ public:
     }
 
 private:
-    EventType mEventType;
-    al::EventFlowExecutor* mEventFlowExecutor;
-    const MusicianCameraParams* mMusicianCameraParams;
+    s32 mEventType = 0;
+    al::EventFlowExecutor* mEventFlowExecutor = nullptr;
+    const MusicianCameraParams* mMusicianCameraParams = nullptr;
     sead::PtrArray<al::LiveActor> mFanActors;
-    SessionMusicianWarpAgent* mWarpAgent;
-    NpcStateReaction* mNpcStateReaction;
-    TalkNpcParam* mTalkNpcParam;
-    NpcJointLookAtController* mNpcJoint;
-    TalkNpcCap* mTalkNpcCap;
+    SessionMusicianWarpAgent* mWarpAgent = nullptr;
+    NpcStateReaction* mNpcStateReaction = nullptr;
+    TalkNpcParam* mTalkNpcParam = nullptr;
+    NpcJointLookAtController* mNpcJoint = nullptr;
+    TalkNpcCap* mTalkNpcCap = nullptr;
     sead::Vector3f mMoonGetDemoPlayerPos;
     sead::Quatf mMoonGetDemoPlayerPose;
-    s32 mLinkedShineIndex;
-    IUsePlayerPuppet* mPuppet;
-    bool mIsJoined;
+    s32 mLinkedShineIndex = -1;
+    IUsePlayerPuppet* mPuppet = nullptr;
+    bool mIsJoined = false;
     std::string mWaitAnimName;
     std::string mSabiAnimName;
-    CityManRhythmInfo* mRhythmInfo;
-    BgmAnimeSynchronizer* mBgmSync;
-    f32 mAnimBeatFrameOffset;
-    bool mIsNeedRythmResync;
-    bool mIsUseBgmTrackMute;
+    CityManRhythmInfo* mRhythmInfo = nullptr;
+    BgmAnimeSynchronizer* mBgmSync = nullptr;
+    f32 mAnimBeatFrameOffset = -1;
+    bool mIsNeedRythmResync = true;
+    bool mIsUseBgmTrackMute = false;
 };
 
 // NOTE: if this assertion fails, make sure you are using libc++ (llvm) as standard library.

@@ -89,9 +89,9 @@ void HackFork::init(const al::ActorInitInfo& info) {
         mIsHackBoard = true;
     }
 
-    bool hasBallon = false;
-    bool isBallonValid = al::tryGetArg(&hasBallon, info, "Balloon");
-    if (hasBallon && isBallonValid && !rs::isSequenceTimeBalloonOrRace(this)) {
+    bool hasBalloon = false;
+    bool isBalloonValid = al::tryGetArg(&hasBalloon, info, "Balloon");
+    if (hasBalloon && isBalloonValid && !rs::isSequenceTimeBalloonOrRace(this)) {
         mEventFlowExecutor = rs::initEventFlow(this, info, nullptr, nullptr);
         rs::startEventFlow(mEventFlowExecutor, "Init");
     }
